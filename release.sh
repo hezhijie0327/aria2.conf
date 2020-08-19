@@ -1,6 +1,6 @@
 #!/bin/bash
 
-# Current Version: 1.0.1
+# Current Version: 1.0.2
 
 ## How to get and use?
 # git clone "https://github.com/hezhijie0327/aria2.conf.git" && chmod 0777 ./aria2.conf/release.sh && bash ./aria2.conf/release.sh
@@ -168,8 +168,8 @@ function BitTorrent_Specific_Options() {
     echo "listen-port=51413" >> ./aria2.conf
     echo "max-overall-upload-limit=0" >> ./aria2.conf
     echo "max-upload-limit=0" >> ./aria2.conf
-    echo "peer-agent=Transmission/$(curl -s --connect-timeout 15 "https://api.github.com/repos/transmission/transmission/releases/latest" | grep "tag_name" | head -n 1 | awk -F ":" '{print $2}' | sed "s/\ //g;s/\"//g;s/\,//g")" >> ./aria2.conf
-    echo "peer-id-prefix=-TR$(curl -s --connect-timeout 15 "https://api.github.com/repos/transmission/transmission/releases/latest" | grep "tag_name" | head -n 1 | awk -F ":" '{print $2}' | sed "s/\ //g;s/\"//g;s/\,//g;s/\.//g")0-" >> ./aria2.conf
+    echo "peer-agent=Transmission/$(curl -s --connect-timeout 15 "https://api.github.com/repos/transmission/transmission/releases/latest" | grep "tag_name" | head -n 1 | awk -F ":" '{ print $2 }' | sed "s/\ //g;s/\"//g;s/\,//g")" >> ./aria2.conf
+    echo "peer-id-prefix=-TR$(curl -s --connect-timeout 15 "https://api.github.com/repos/transmission/transmission/releases/latest" | grep "tag_name" | head -n 1 | awk -F ":" '{ print $2 }' | sed "s/\ //g;s/\"//g;s/\,//g;s/\.//g")0-" >> ./aria2.conf
     echo "seed-ratio=1.0" >> ./aria2.conf
     echo "seed-time=60" >> ./aria2.conf
     echo "" >> ./aria2.conf
@@ -213,7 +213,7 @@ function HTTP_Specific_Options() {
     echo "#referer=" >> ./aria2.conf
     echo "save-cookies=/etc/aria2/aria2.cookies" >> ./aria2.conf
     echo "use-head=true" >> ./aria2.conf
-    echo "user-agent=Transmission/$(curl -s --connect-timeout 15 "https://api.github.com/repos/transmission/transmission/releases/latest" | grep "tag_name" | head -n 1 | awk -F ":" '{print $2}' | sed "s/\ //g;s/\"//g;s/\,//g")" >> ./aria2.conf
+    echo "user-agent=Transmission/$(curl -s --connect-timeout 15 "https://api.github.com/repos/transmission/transmission/releases/latest" | grep "tag_name" | head -n 1 | awk -F ":" '{ print $2 }' | sed "s/\ //g;s/\"//g;s/\,//g")" >> ./aria2.conf
     echo "" >> ./aria2.conf
 }
 # Metalink Specific Options
