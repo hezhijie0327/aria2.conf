@@ -1,6 +1,6 @@
 #!/bin/bash
 
-# Current Version: 1.0.2
+# Current Version: 1.0.3
 
 ## How to get and use?
 # git clone "https://github.com/hezhijie0327/aria2.conf.git" && chmod 0777 ./aria2.conf/release.sh && bash ./aria2.conf/release.sh
@@ -82,7 +82,7 @@ function Basic_Options() {
     echo "## Basic Options" >> ./aria2.conf
     echo "check-integrity=true" >> ./aria2.conf
     echo "continue=true" >> ./aria2.conf
-    echo "dir=/mnt/md0/Downloads" >> ./aria2.conf
+    echo "dir=/etc/aria2/Downloads" >> ./aria2.conf
     echo "input-file=/etc/aria2/aria2.session" >> ./aria2.conf
     echo "log=/etc/aria2/aria2.log" >> ./aria2.conf
     echo "max-concurrent-downloads=10" >> ./aria2.conf
@@ -208,10 +208,10 @@ function HTTP_Specific_Options() {
     echo "#https-proxy-passwd=" >> ./aria2.conf
     echo "#https-proxy-user=" >> ./aria2.conf
     echo "#https-proxy=" >> ./aria2.conf
-    echo "load-cookies=/etc/aria2/aria2.cookies" >> ./aria2.conf
+    echo "load-cookies=/etc/aria2/aria2.cookie" >> ./aria2.conf
     echo "#private-key=" >> ./aria2.conf
     echo "#referer=" >> ./aria2.conf
-    echo "save-cookies=/etc/aria2/aria2.cookies" >> ./aria2.conf
+    echo "save-cookies=/etc/aria2/aria2.cookie" >> ./aria2.conf
     echo "use-head=true" >> ./aria2.conf
     echo "user-agent=Transmission/$(curl -s --connect-timeout 15 "https://api.github.com/repos/transmission/transmission/releases/latest" | grep "tag_name" | head -n 1 | awk -F ":" '{ print $2 }' | sed "s/\ //g;s/\"//g;s/\,//g")" >> ./aria2.conf
     echo "" >> ./aria2.conf
