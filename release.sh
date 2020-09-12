@@ -1,6 +1,6 @@
 #!/bin/bash
 
-# Current Version: 1.0.3
+# Current Version: 1.0.4
 
 ## How to get and use?
 # git clone "https://github.com/hezhijie0327/aria2.conf.git" && chmod 0777 ./aria2.conf/release.sh && bash ./aria2.conf/release.sh
@@ -28,7 +28,7 @@ function Advanced_Options() {
     echo "daemon=true" >> ./aria2.conf
     echo "deferred-input=false" >> ./aria2.conf
     echo "disable-ipv6=false" >> ./aria2.conf
-    echo "disk-cache=64M" >> ./aria2.conf
+    echo "disk-cache=512M" >> ./aria2.conf
     echo "download-result=full" >> ./aria2.conf
     echo "#dscp=" >> ./aria2.conf
     echo "enable-color=true" >> ./aria2.conf
@@ -51,7 +51,7 @@ function Advanced_Options() {
     echo "min-tls-version=TLSv1.2" >> ./aria2.conf
     echo "#multiple-interface=" >> ./aria2.conf
     echo "no-conf=false" >> ./aria2.conf
-    echo "no-file-allocation-limit=64M" >> ./aria2.conf
+    echo "no-file-allocation-limit=4M" >> ./aria2.conf
     echo "#on-bt-download-complete=" >> ./aria2.conf
     echo "#on-download-complete=" >> ./aria2.conf
     echo "#on-download-error=" >> ./aria2.conf
@@ -60,7 +60,7 @@ function Advanced_Options() {
     echo "#on-download-stop=" >> ./aria2.conf
     echo "optimize-concurrent-downloads=true" >> ./aria2.conf
     echo "parameterized-uri=true" >> ./aria2.conf
-    echo "piece-length=64M" >> ./aria2.conf
+    echo "piece-length=4M" >> ./aria2.conf
     echo "quiet=true" >> ./aria2.conf
     echo "realtime-chunk-checksum=true" >> ./aria2.conf
     echo "remove-control-file=true" >> ./aria2.conf
@@ -108,7 +108,7 @@ function HTTP_FTP_SFTP_Options() {
     echo "max-connection-per-server=16" >> ./aria2.conf
     echo "max-file-not-found=5" >> ./aria2.conf
     echo "max-tries=5" >> ./aria2.conf
-    echo "min-split-size=64M" >> ./aria2.conf
+    echo "min-split-size=4M" >> ./aria2.conf
     echo "netrc-path=/etc/aria2/aria2.netrc" >> ./aria2.conf
     echo "no-netrc=false" >> ./aria2.conf
     echo "#no-proxy=" >> ./aria2.conf
@@ -240,7 +240,7 @@ function RPC_Options() {
     echo "#rpc-certificate=" >> ./aria2.conf
     echo "rpc-listen-all=true" >> ./aria2.conf
     echo "rpc-listen-port=6800" >> ./aria2.conf
-    echo "rpc-max-request-size=64M" >> ./aria2.conf
+    echo "rpc-max-request-size=4M" >> ./aria2.conf
     echo "#rpc-private-key=" >> ./aria2.conf
     echo "rpc-save-upload-metadata=true" >> ./aria2.conf
     echo "#rpc-secret=" >> ./aria2.conf
