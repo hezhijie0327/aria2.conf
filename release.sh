@@ -1,6 +1,6 @@
 #!/bin/bash
 
-# Current Version: 1.0.5
+# Current Version: 1.0.6
 
 ## How to get and use?
 # git clone "https://github.com/hezhijie0327/aria2.conf.git" && chmod 0777 ./aria2.conf/release.sh && bash ./aria2.conf/release.sh
@@ -233,7 +233,7 @@ function OutputData() {
             done
             ;;
             2)
-            aria2_dir="C:\Program Files\\\aria2\\" && event_poll="select" && Generatearia2cOptions
+            aria2_dir="C:\Program Files\\aria2\\" && event_poll="select" && Generatearia2cOptions
             for aria2c_options_task in "${!aria2c_options[@]}"; do
                 echo "${aria2c_options[$aria2c_options_task]}" >> ./aria2_windows.conf
             done
