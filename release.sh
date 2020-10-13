@@ -1,6 +1,6 @@
 #!/bin/bash
 
-# Current Version: 1.1.5
+# Current Version: 1.1.6
 
 ## How to get and use?
 # git clone "https://github.com/hezhijie0327/aria2.conf.git" && chmod 0777 ./aria2.conf/release.sh && bash ./aria2.conf/release.sh
@@ -138,12 +138,12 @@ function Generatearia2cOptions() {
         "max-tries=0"
         "max-upload-limit=0"
         "#metalink-base-uri="
-        "metalink-enable-unique-protocol=true"
+        "metalink-enable-unique-protocol=false"
         "#metalink-file="
         "#metalink-language="
         "#metalink-location="
         "#metalink-os="
-        "metalink-preferred-protocol=https"
+        "metalink-preferred-protocol=none"
         "#metalink-version="
         "min-split-size=4M"
         "min-tls-version=TLSv1.2"
@@ -171,7 +171,7 @@ function Generatearia2cOptions() {
         "proxy-method=get"
         "quiet=false"
         "realtime-chunk-checksum=true"
-        "#referer="
+        "referer=*"
         "remote-time=true"
         "remove-control-file=true"
         "retry-wait=0"
