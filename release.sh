@@ -1,6 +1,6 @@
 #!/bin/bash
 
-# Current Version: 1.1.2
+# Current Version: 1.1.3
 
 ## How to get and use?
 # git clone "https://github.com/hezhijie0327/aria2.conf.git" && chmod 0777 ./aria2.conf/release.sh && bash ./aria2.conf/release.sh
@@ -42,7 +42,7 @@ function Generatearia2cOptions() {
         "bt-max-peers=0"
         "bt-metadata-only=false"
         "bt-min-crypto-level=arc4"
-        "#bt-prioritize-piece="
+        "bt-prioritize-piece=head,tail"
         "bt-remove-unselected-file=false"
         "bt-request-peer-speed-limit=4M"
         "bt-require-crypto=true"
@@ -76,7 +76,7 @@ function Generatearia2cOptions() {
         "dir=${aria2_dir}Downloads"
         "disable-ipv6=false"
         "disk-cache=256M"
-        "download-result=default"
+        "download-result=full"
         "dry-run=false"
         "#dscp="
         "enable-color=true"
