@@ -1,6 +1,6 @@
 #!/bin/bash
 
-# Current Version: 1.1.0
+# Current Version: 1.1.1
 
 ## How to get and use?
 # git clone "https://github.com/hezhijie0327/aria2.conf.git" && chmod 0777 ./aria2.conf/release.sh && bash ./aria2.conf/release.sh
@@ -145,12 +145,12 @@ function Generatearia2cOptions() {
         "#metalink-os="
         "metalink-preferred-protocol=https"
         "#metalink-version="
-        "min-split-size=256M"
+        "min-split-size=4M"
         "min-tls-version=TLSv1.2"
         "#multiple-interface="
         "netrc-path=${aria2_dir}aria2.netrc"
         "no-conf=false"
-        "no-file-allocation-limit=256M"
+        "no-file-allocation-limit=4M"
         "no-netrc=false"
         "#no-proxy="
         "#on-bt-download-complete="
@@ -166,7 +166,7 @@ function Generatearia2cOptions() {
         "pause=false"
         "peer-agent=Transmission/${transmission_agent}"
         "peer-id-prefix=-TR${transmission_id_prefx}0-"
-        "piece-length=256M"
+        "piece-length=4M"
         "#private-key="
         "proxy-method=get"
         "quiet=false"
@@ -206,12 +206,12 @@ function Generatearia2cOptions() {
         "stderr=true"
         "#stop-with-process="
         "stop=0"
-        "stream-piece-selector=inorder"
+        "stream-piece-selector=random"
         "summary-interval=5"
         "timeout=5"
         "#torrent-file="
         "truncate-console-readout=true"
-        "uri-selector=inorder"
+        "uri-selector=adaptive"
         "use-head=false"
         "user-agent=Transmission/${transmission_agent}"
         "#version"
