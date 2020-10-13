@@ -1,6 +1,6 @@
 #!/bin/bash
 
-# Current Version: 1.1.3
+# Current Version: 1.1.4
 
 ## How to get and use?
 # git clone "https://github.com/hezhijie0327/aria2.conf.git" && chmod 0777 ./aria2.conf/release.sh && bash ./aria2.conf/release.sh
@@ -84,12 +84,12 @@ function Generatearia2cOptions() {
         "enable-dht=true"
         "enable-http-keep-alive=true"
         "enable-http-pipelining=true"
-        "enable-mmap=true"
+        "enable-mmap=false"
         "enable-peer-exchange=true"
         "enable-rpc=true"
         "event-poll=${event_poll}"
         "#help"
-        "file-allocation=falloc"
+        "file-allocation=none"
         "follow-metalink=mem"
         "follow-torrent=mem"
         "force-save=true"
@@ -131,7 +131,7 @@ function Generatearia2cOptions() {
         "max-download-limit=0"
         "max-download-result=10"
         "max-file-not-found=0"
-        "max-mmap-limit=9223372036854775807"
+        "#max-mmap-limit="
         "max-overall-download-limit=0"
         "max-overall-upload-limit=0"
         "max-resume-failure-tries=0"
