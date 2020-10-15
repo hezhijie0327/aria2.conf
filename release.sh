@@ -1,6 +1,6 @@
 #!/bin/bash
 
-# Current Version: 1.1.9
+# Current Version: 1.2.0
 
 ## How to get and use?
 # git clone "https://github.com/hezhijie0327/aria2.conf.git" && chmod 0777 ./aria2.conf/release.sh && bash ./aria2.conf/release.sh
@@ -220,7 +220,7 @@ function Generatearia2cOptions() {
 # Output aria2c Options
 function Outputaria2cOptions() {
     for aria2c_options_task in "${!aria2c_options[@]}"; do
-        if [ "$(echo ${aria2c_options[$aria2c_options_task]} | grep '\=')" != "" ] || [ "$(echo ${aria2c_options[$aria2c_options_task]} | sed 's/^.*\=//g')" != "" ]; then
+        if [ "$(echo ${aria2c_options[$aria2c_options_task]} | grep '\=')" != "" ] && [ "$(echo ${aria2c_options[$aria2c_options_task]} | sed 's/^.*\=//g')" != "" ]; then
             echo "${aria2c_options[$aria2c_options_task]}" >> ./aria2_${os_name}.conf
         else
             echo "#${aria2c_options[$aria2c_options_task]}" >> ./aria2_${os_name}.conf
