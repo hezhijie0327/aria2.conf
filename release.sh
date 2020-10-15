@@ -1,6 +1,6 @@
 #!/bin/bash
 
-# Current Version: 1.2.2
+# Current Version: 1.2.3
 
 ## How to get and use?
 # git clone "https://github.com/hezhijie0327/aria2.conf.git" && chmod 0777 ./aria2.conf/release.sh && bash ./aria2.conf/release.sh
@@ -162,8 +162,8 @@ function Generatearia2cOptions() {
         "optimize-concurrent-downloads=true"
         "out="
         "parameterized-uri=true"
-        "pause-metadata=true"
-        "pause=true"
+        "pause-metadata=false"
+        "pause=false"
         "peer-agent=Transmission/${transmission_user_agent}"
         "peer-id-prefix=-TR${transmission_id_prefx}0-"
         "piece-length=4M"
