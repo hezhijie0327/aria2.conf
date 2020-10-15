@@ -1,6 +1,6 @@
 #!/bin/bash
 
-# Current Version: 1.1.7
+# Current Version: 1.1.8
 
 ## How to get and use?
 # git clone "https://github.com/hezhijie0327/aria2.conf.git" && chmod 0777 ./aria2.conf/release.sh && bash ./aria2.conf/release.sh
@@ -26,7 +26,7 @@ function Generatearia2cOptions() {
         "allow-piece-length-change=false"
         "always-resume=true"
         "#async-dns-server="
-        "#async-dns=true"
+        "async-dns=true"
         "auto-file-renaming=true"
         "auto-save-interval=5"
         "bt-detach-seed-only=true"
