@@ -1,6 +1,6 @@
 #!/bin/bash
 
-# Current Version: 1.1.8
+# Current Version: 1.1.9
 
 ## How to get and use?
 # git clone "https://github.com/hezhijie0327/aria2.conf.git" && chmod 0777 ./aria2.conf/release.sh && bash ./aria2.conf/release.sh
@@ -13,19 +13,19 @@ function GetTrackerslistData() {
 }
 # Get Transmission Info
 function GetTransmissionInfo() {
-    transmission_agent=$(curl -s --connect-timeout 15 "https://api.github.com/repos/transmission/transmission/releases/latest" | grep "tag_name" | head -n 1 | awk -F ":" '{ print $2 }' | sed "s/\ //g;s/\"//g;s/\,//g")
+    transmission_user_agent=$(curl -s --connect-timeout 15 "https://api.github.com/repos/transmission/transmission/releases/latest" | grep "tag_name" | head -n 1 | awk -F ":" '{ print $2 }' | sed "s/\ //g;s/\"//g;s/\,//g")
     transmission_id_prefx=$(curl -s --connect-timeout 15 "https://api.github.com/repos/transmission/transmission/releases/latest" | grep "tag_name" | head -n 1 | awk -F ":" '{ print $2 }' | sed "s/\ //g;s/\"//g;s/\,//g;s/\.//g")
 }
 # Generate aria2c Options
 function Generatearia2cOptions() {
     aria2c_options=(
-        "#all-proxy-passwd="
-        "#all-proxy-user="
-        "#all-proxy="
+        "all-proxy-passwd="
+        "all-proxy-user="
+        "all-proxy="
         "allow-overwrite=false"
         "allow-piece-length-change=false"
         "always-resume=true"
-        "#async-dns-server="
+        "async-dns-server="
         "async-dns=true"
         "auto-file-renaming=true"
         "auto-save-interval=5"
@@ -33,11 +33,11 @@ function Generatearia2cOptions() {
         "bt-enable-hook-after-hash-check=true"
         "bt-enable-lpd=true"
         "bt-exclude-tracker=${excludelist_data}"
-        "#bt-external-ip="
+        "bt-external-ip="
         "bt-force-encryption=true"
         "bt-hash-check-seed=true"
         "bt-load-saved-metadata=true"
-        "#bt-lpd-interface="
+        "bt-lpd-interface="
         "bt-max-open-files=65536"
         "bt-max-peers=0"
         "bt-metadata-only=false"
@@ -53,13 +53,13 @@ function Generatearia2cOptions() {
         "bt-tracker-interval=0"
         "bt-tracker-timeout=5"
         "bt-tracker=${trackerlist_data}"
-        "#ca-certificate="
-        "#certificate="
+        "ca-certificate="
+        "certificate="
         "check-certificate=true"
         "check-integrity=true"
-        "#checksum="
+        "checksum="
         "conditional-get=false"
-        "conf-path=${aria2_dir}aria2.conf"
+        "conf-path=${aria2c_dir}aria2.conf"
         "connect-timeout=5"
         "console-log-level=error"
         "content-disposition-default-utf8=true"
@@ -68,17 +68,17 @@ function Generatearia2cOptions() {
         "deferred-input=false"
         "dht-entry-point6=dht.transmissionbt.com:6881"
         "dht-entry-point=dht.transmissionbt.com:6881"
-        "dht-file-path6=${aria2_dir}aria2.dht6"
-        "dht-file-path=${aria2_dir}aria2.dht"
-        "#dht-listen-addr6="
+        "dht-file-path6=${aria2c_dir}aria2.dht6"
+        "dht-file-path=${aria2c_dir}aria2.dht"
+        "dht-listen-addr6="
         "dht-listen-port=6881"
         "dht-message-timeout=5"
-        "dir=${aria2_dir}Downloads"
+        "dir=${aria2c_dir}Downloads"
         "disable-ipv6=false"
         "disk-cache=256M"
         "download-result=full"
         "dry-run=false"
-        "#dscp="
+        "dscp="
         "enable-color=true"
         "enable-dht6=true"
         "enable-dht=true"
@@ -88,7 +88,6 @@ function Generatearia2cOptions() {
         "enable-peer-exchange=true"
         "enable-rpc=true"
         "event-poll=${event_poll}"
-        "#help"
         "file-allocation=falloc"
         "follow-metalink=mem"
         "follow-torrent=mem"
@@ -96,35 +95,36 @@ function Generatearia2cOptions() {
         "force-sequential=true"
         "ftp-passwd=TRANSMISSIONUSER@"
         "ftp-pasv=true"
-        "#ftp-proxy-passwd="
-        "#ftp-proxy-user="
-        "#ftp-proxy="
+        "ftp-proxy-passwd="
+        "ftp-proxy-user="
+        "ftp-proxy="
         "ftp-reuse-connection=true"
         "ftp-type=binary"
         "ftp-user=anonymous"
-        "#gid="
+        "gid="
         "hash-check-only=false"
-        "#header="
+        "header="
+        "help"
         "http-accept-gzip=true"
         "http-auth-challenge=true"
         "http-no-cache=true"
-        "#http-passwd="
-        "#http-proxy-passwd="
-        "#http-proxy-user="
-        "#http-proxy="
-        "#http-user="
-        "#https-proxy-passwd="
-        "#https-proxy-user="
-        "#https-proxy="
+        "http-passwd="
+        "http-proxy-passwd="
+        "http-proxy-user="
+        "http-proxy="
+        "http-user="
+        "https-proxy-passwd="
+        "https-proxy-user="
+        "https-proxy="
         "human-readable=true"
-        "#index-out="
-        "input-file=${aria2_dir}aria2.session"
-        "#interface="
+        "index-out="
+        "input-file=${aria2c_dir}aria2.session"
+        "interface="
         "keep-unfinished-download-result=true"
         "listen-port=51413"
-        "load-cookies=${aria2_dir}aria2.cookie"
+        "load-cookies=${aria2c_dir}aria2.cookie"
         "log-level=error"
-        "log=${aria2_dir}aria2.log"
+        "log=${aria2c_dir}aria2.log"
         "lowest-speed-limit=0"
         "max-concurrent-downloads=10"
         "max-connection-per-server=16"
@@ -137,37 +137,37 @@ function Generatearia2cOptions() {
         "max-resume-failure-tries=0"
         "max-tries=0"
         "max-upload-limit=0"
-        "#metalink-base-uri="
+        "metalink-base-uri="
         "metalink-enable-unique-protocol=false"
-        "#metalink-file="
-        "#metalink-language="
-        "#metalink-location="
-        "#metalink-os="
+        "metalink-file="
+        "metalink-language="
+        "metalink-location="
+        "metalink-os="
         "metalink-preferred-protocol=none"
-        "#metalink-version="
+        "metalink-version="
         "min-split-size=4M"
         "min-tls-version=TLSv1.2"
-        "#multiple-interface="
-        "netrc-path=${aria2_dir}aria2.netrc"
+        "multiple-interface="
+        "netrc-path=${aria2c_dir}aria2.netrc"
         "no-conf=false"
         "no-file-allocation-limit=4M"
         "no-netrc=false"
-        "#no-proxy="
-        "#on-bt-download-complete="
-        "#on-download-complete="
-        "#on-download-error="
-        "#on-download-pause="
-        "#on-download-start="
-        "#on-download-stop="
+        "no-proxy="
+        "on-bt-download-complete="
+        "on-download-complete="
+        "on-download-error="
+        "on-download-pause="
+        "on-download-start="
+        "on-download-stop="
         "optimize-concurrent-downloads=true"
-        "#out="
+        "out="
         "parameterized-uri=true"
         "pause-metadata=false"
         "pause=false"
-        "peer-agent=Transmission/${transmission_agent}"
+        "peer-agent=Transmission/${transmission_user_agent}"
         "peer-id-prefix=-TR${transmission_id_prefx}0-"
         "piece-length=4M"
-        "#private-key="
+        "private-key="
         "proxy-method=get"
         "quiet=false"
         "realtime-chunk-checksum=true"
@@ -176,46 +176,56 @@ function Generatearia2cOptions() {
         "remove-control-file=true"
         "retry-wait=0"
         "reuse-uri=true"
-        "#rlimit-nofile="
+        "rlimit-nofile="
         "rpc-allow-origin-all=true"
-        "#rpc-certificate="
+        "rpc-certificate="
         "rpc-listen-all=true"
         "rpc-listen-port=6800"
         "rpc-max-request-size=4M"
-        "#rpc-passwd="
-        "#rpc-private-key="
+        "rpc-passwd="
+        "rpc-private-key="
         "rpc-save-upload-metadata=true"
-        "#rpc-secret="
+        "rpc-secret="
         "rpc-secure=false"
-        "#rpc-user="
-        "save-cookies=${aria2_dir}aria2.cookie"
+        "rpc-user="
+        "save-cookies=${aria2c_dir}aria2.cookie"
         "save-not-found=true"
         "save-session-interval=5"
-        "save-session=${aria2_dir}aria2.session"
+        "save-session=${aria2c_dir}aria2.session"
         "seed-ratio=1.0"
         "seed-time=60"
-        "#select-file="
-        "server-stat-if=${aria2_dir}aria2.stat"
-        "server-stat-of=${aria2_dir}aria2.stat"
+        "select-file="
+        "server-stat-if=${aria2c_dir}aria2.stat"
+        "server-stat-of=${aria2c_dir}aria2.stat"
         "server-stat-timeout=3600"
         "show-console-readout=true"
         "show-files=true"
         "socket-recv-buffer-size=0"
         "split=16"
-        "#ssh-host-key-md="
+        "ssh-host-key-md="
         "stderr=true"
-        "#stop-with-process="
+        "stop-with-process="
         "stop=0"
         "stream-piece-selector=random"
         "summary-interval=5"
         "timeout=5"
-        "#torrent-file="
+        "torrent-file="
         "truncate-console-readout=true"
         "uri-selector=adaptive"
         "use-head=true"
-        "user-agent=Transmission/${transmission_agent}"
-        "#version"
+        "user-agent=Transmission/${transmission_user_agent}"
+        "version"
     )
+}
+# Output aria2c Options
+function Outputaria2cOptions() {
+    for aria2c_options_task in "${!aria2c_options[@]}"; do
+        if [ "$(echo ${aria2c_options[$aria2c_options_task]} | grep '\=')" != "" ] || [ "$(echo ${aria2c_options[$aria2c_options_task]} | sed 's/^.*\=//g')" != "" ]; then
+            echo "${aria2c_options[$aria2c_options_task]}" >> ./aria2_${os_name}.conf
+        else
+            echo "#${aria2c_options[$aria2c_options_task]}" >> ./aria2_${os_name}.conf
+        fi
+    done
 }
 # Output Data
 function OutputData() {
@@ -223,22 +233,13 @@ function OutputData() {
     for (( os_task = 0; os_task < 3; os_task++ )); do
         case ${os_task} in
             0)
-            aria2_dir="/etc/aria2/" && event_poll="epoll" && Generatearia2cOptions
-            for aria2c_options_task in "${!aria2c_options[@]}"; do
-                echo "${aria2c_options[$aria2c_options_task]}" >> ./aria2_linux.conf
-            done
+            aria2c_dir="/etc/aria2/" && event_poll="epoll" && os_name="linux" && Generatearia2cOptions && Outputaria2cOptions
             ;;
             1)
-            aria2_dir="/etc/aria2/" && event_poll="kqueue" && Generatearia2cOptions
-            for aria2c_options_task in "${!aria2c_options[@]}"; do
-                echo "${aria2c_options[$aria2c_options_task]}" >> ./aria2_macos.conf
-            done
+            aria2c_dir="/etc/aria2/" && event_poll="kqueue" os_name="macos" && Generatearia2cOptions && Outputaria2cOptions
             ;;
             2)
-            aria2_dir="C:\Program Files\\aria2\\" && event_poll="select" && Generatearia2cOptions
-            for aria2c_options_task in "${!aria2c_options[@]}"; do
-                echo "${aria2c_options[$aria2c_options_task]}" >> ./aria2_windows.conf
-            done
+            aria2c_dir="C:\Program Files\\aria2\\" && event_poll="select" && os_name="windows" && Generatearia2cOptions && Outputaria2cOptions
             ;;
         esac
     done
