@@ -1,6 +1,6 @@
 #!/bin/bash
 
-# Current Version: 1.2.0
+# Current Version: 1.2.1
 
 ## How to get and use?
 # git clone "https://github.com/hezhijie0327/aria2.conf.git" && chmod 0777 ./aria2.conf/release.sh && bash ./aria2.conf/release.sh
@@ -22,7 +22,7 @@ function Generatearia2cOptions() {
         "all-proxy-passwd="
         "all-proxy-user="
         "all-proxy="
-        "allow-overwrite=false"
+        "allow-overwrite=true"
         "allow-piece-length-change=false"
         "always-resume=true"
         "async-dns-server="
@@ -43,7 +43,7 @@ function Generatearia2cOptions() {
         "bt-metadata-only=false"
         "bt-min-crypto-level=arc4"
         "bt-prioritize-piece=head,tail"
-        "bt-remove-unselected-file=false"
+        "bt-remove-unselected-file=true"
         "bt-request-peer-speed-limit=4M"
         "bt-require-crypto=true"
         "bt-save-metadata=true"
@@ -58,7 +58,7 @@ function Generatearia2cOptions() {
         "check-certificate=true"
         "check-integrity=true"
         "checksum="
-        "conditional-get=false"
+        "conditional-get=true"
         "conf-path=${aria2c_dir}aria2.conf"
         "connect-timeout=5"
         "console-log-level=error"
