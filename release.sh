@@ -1,6 +1,6 @@
 #!/bin/bash
 
-# Current Version: 1.2.5
+# Current Version: 1.2.6
 
 ## How to get and use?
 # git clone "https://github.com/hezhijie0327/aria2.conf.git" && chmod 0777 ./aria2.conf/release.sh && bash ./aria2.conf/release.sh
@@ -50,7 +50,7 @@ function Generatearia2cOptions() {
         "bt-seed-unverified=false"
         "bt-stop-timeout=0"
         "bt-tracker-connect-timeout=5"
-        "bt-tracker-interval=0"
+        "bt-tracker-interval=5"
         "bt-tracker-timeout=5"
         "bt-tracker=${trackerlist_data}"
         "ca-certificate="
@@ -130,7 +130,7 @@ function Generatearia2cOptions() {
         "max-connection-per-server=16"
         "max-download-limit=0"
         "max-download-result=10"
-        "max-file-not-found=0"
+        "max-file-not-found=5"
         "max-mmap-limit=9223372036854775807"
         "max-overall-download-limit=0"
         "max-overall-upload-limit=0"
@@ -138,12 +138,12 @@ function Generatearia2cOptions() {
         "max-tries=0"
         "max-upload-limit=0"
         "metalink-base-uri="
-        "metalink-enable-unique-protocol=false"
+        "metalink-enable-unique-protocol=true"
         "metalink-file="
         "metalink-language="
         "metalink-location="
         "metalink-os="
-        "metalink-preferred-protocol=none"
+        "metalink-preferred-protocol=https"
         "metalink-version="
         "min-split-size=4M"
         "min-tls-version=TLSv1.2"
@@ -168,13 +168,13 @@ function Generatearia2cOptions() {
         "peer-id-prefix=-TR${transmission_id_prefx}0-"
         "piece-length=4M"
         "private-key="
-        "proxy-method=get"
+        "proxy-method=tunnel"
         "quiet=false"
         "realtime-chunk-checksum=true"
         "referer=*"
         "remote-time=true"
         "remove-control-file=true"
-        "retry-wait=0"
+        "retry-wait=5"
         "reuse-uri=true"
         "rlimit-nofile="
         "rpc-allow-origin-all=true"
