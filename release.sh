@@ -1,6 +1,6 @@
 #!/bin/bash
 
-# Current Version: 1.2.4
+# Current Version: 1.2.5
 
 ## How to get and use?
 # git clone "https://github.com/hezhijie0327/aria2.conf.git" && chmod 0777 ./aria2.conf/release.sh && bash ./aria2.conf/release.sh
@@ -44,7 +44,7 @@ function Generatearia2cOptions() {
         "bt-min-crypto-level=arc4"
         "bt-prioritize-piece=head,tail"
         "bt-remove-unselected-file=true"
-        "bt-request-peer-speed-limit=4M"
+        "bt-request-peer-speed-limit=125M"
         "bt-require-crypto=true"
         "bt-save-metadata=true"
         "bt-seed-unverified=false"
