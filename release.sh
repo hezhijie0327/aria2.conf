@@ -1,6 +1,6 @@
 #!/bin/bash
 
-# Current Version: 1.2.6
+# Current Version: 1.2.7
 
 ## How to get and use?
 # git clone "https://github.com/hezhijie0327/aria2.conf.git" && chmod 0777 ./aria2.conf/release.sh && bash ./aria2.conf/release.sh
@@ -236,7 +236,7 @@ function OutputData() {
             aria2c_dir="/etc/aria2/" && event_poll="epoll" && os_name="linux" && Generatearia2cOptions && Outputaria2cOptions
             ;;
             1)
-            aria2c_dir="/etc/aria2/" && event_poll="kqueue" os_name="macos" && Generatearia2cOptions && Outputaria2cOptions
+            aria2c_dir="/etc/aria2/" && event_poll="kqueue" && os_name="macos" && Generatearia2cOptions && Outputaria2cOptions
             ;;
             2)
             aria2c_dir="C:\Program Files\\aria2\\" && event_poll="select" && os_name="windows" && Generatearia2cOptions && Outputaria2cOptions
