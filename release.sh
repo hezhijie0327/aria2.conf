@@ -1,6 +1,6 @@
 #!/bin/bash
 
-# Current Version: 1.2.7
+# Current Version: 1.2.8
 
 ## How to get and use?
 # git clone "https://github.com/hezhijie0327/aria2.conf.git" && chmod 0777 ./aria2.conf/release.sh && bash ./aria2.conf/release.sh
@@ -13,8 +13,8 @@ function GetTrackerslistData() {
 }
 # Get Transmission Info
 function GetTransmissionInfo() {
-    transmission_user_agent=$(curl -s --connect-timeout 15 "https://api.github.com/repos/transmission/transmission/releases/latest" | grep "tag_name" | head -n 1 | awk -F ":" '{ print $2 }' | sed "s/\ //g;s/\"//g;s/\,//g")
-    transmission_id_prefx=$(curl -s --connect-timeout 15 "https://api.github.com/repos/transmission/transmission/releases/latest" | grep "tag_name" | head -n 1 | awk -F ":" '{ print $2 }' | sed "s/\ //g;s/\"//g;s/\,//g;s/\.//g")
+    transmission_id_prefx="-TR$(curl -s --connect-timeout 15 'https://api.github.com/repos/transmission/transmission/releases/latest' | grep 'tag_name' | head -n 1 | awk -F ':' '{ print $2 }' | sed 's/\ //g;s/\"//g;s/\,//g;s/\.//g')0-"
+    transmission_user_agent="Transmission/$(curl -s --connect-timeout 15 'https://api.github.com/repos/transmission/transmission/releases/latest' | grep 'tag_name' | head -n 1 | awk -F ':' '{ print $2 }' | sed 's/\ //g;s/\"//g;s/\,//g')"
 }
 # Generate aria2c Options
 function Generatearia2cOptions() {
@@ -164,8 +164,8 @@ function Generatearia2cOptions() {
         "parameterized-uri=true"
         "pause-metadata=false"
         "pause=false"
-        "peer-agent=Transmission/${transmission_user_agent}"
-        "peer-id-prefix=-TR${transmission_id_prefx}0-"
+        "peer-agent=${transmission_user_agent}"
+        "peer-id-prefix=${transmission_id_prefx}"
         "piece-length=4M"
         "private-key="
         "proxy-method=tunnel"
@@ -213,7 +213,7 @@ function Generatearia2cOptions() {
         "truncate-console-readout=true"
         "uri-selector=adaptive"
         "use-head=true"
-        "user-agent=Transmission/${transmission_user_agent}"
+        "user-agent=${transmission_user_agent}"
         "version"
     )
 }
