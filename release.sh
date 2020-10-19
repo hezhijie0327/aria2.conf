@@ -1,6 +1,6 @@
 #!/bin/bash
 
-# Current Version: 1.3.3
+# Current Version: 1.3.4
 
 ## How to get and use?
 # git clone "https://github.com/hezhijie0327/aria2.conf.git" && chmod 0777 ./aria2.conf/release.sh && bash ./aria2.conf/release.sh
@@ -228,7 +228,7 @@ function GenerateMasqueradeInfo() {
     elif [ "${software_prefix}" == "tr" ]; then
         ftp_passwd="TRANSMISSIONUSER@"
         peer_agent="Transmission/${Transmission_version[0]}"
-        peer_id_prefx"=-TR$(echo ${Transmission_version[0]} | sed "s/\.//g")0-"
+        peer_id_prefx="-TR$(echo ${Transmission_version[0]} | sed "s/\.//g")0-"
         user_agent="Transmission/${Transmission_version[0]}"
     else
         ftp_passwd="ARIA2USER@"
