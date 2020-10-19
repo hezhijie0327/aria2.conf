@@ -1,6 +1,6 @@
 #!/bin/bash
 
-# Current Version: 1.3.0
+# Current Version: 1.3.1
 
 ## How to get and use?
 # git clone "https://github.com/hezhijie0327/aria2.conf.git" && chmod 0777 ./aria2.conf/release.sh && bash ./aria2.conf/release.sh
@@ -15,7 +15,7 @@ function GetTrackerslistData() {
 function GetMasqueradeData() {
     aria2_version=($(curl -s --connect-timeout 15 "https://api.github.com/repos/aria2/aria2/tags" | grep "\"name\"\:" | tr -cd "[:digit:].\n" | grep -E "^[0-9]{1}.[0-9]{2}.[0-9]{1}$" | sort -r | uniq | awk "{ print $2 }"))
     qBittorrent_version=($(curl -s --connect-timeout 15 "https://api.github.com/repos/qbittorrent/qBittorrent/tags" | grep "\"name\"\:" | tr -cd "[:digit:].\n" | grep -E "^[0-9]{1}.[0-9]{1}.[0-9]{1}$" | sort -r | uniq | awk "{ print $2 }"))
-    Transmission_version=($(curl -s --connect-timeout 15 "https://api.github.com/repos/transmission/transmission/tags" | grep "\"name\"\:" | tr -cd "[:digit:].\n" | grep -E "^[0-9]{1}.[0-9]{1}.[0-9]{1}$" | sort -r | uniq | awk "{ print $2 }"))
+    Transmission_version=($(curl -s --connect-timeout 15 "https://api.github.com/repos/transmission/transmission/tags" | grep "\"name\"\:" | tr -cd "[:digit:].\n" | grep -E "^[0-9]{1}.[0-9]{2}$" | sort -r | uniq | awk "{ print $2 }"))
 }
 # Generate aria2c Options
 function Generatearia2cOptions() {
@@ -221,16 +221,16 @@ function Generatearia2cOptions() {
 # Generate Masquerade Info
 function GenerateMasqueradeInfo() {
     if [ "${software_prefix}" == "qb" ]; then
-        peer_agent=qBittorrent/$(echo ${qBittorrent_version[1]})
-        peer_id_prefx=-qB$(echo ${qBittorrent_version[1]} | sed "s/\.//g")0-
+        peer_agent=qBittorrent/$(echo ${qBittorrent_version[0]})
+        peer_id_prefx=-qB$(echo ${qBittorrent_version[0]} | sed "s/\.//g")0-
         user_agent=${peer_agent}
     elif [ "${software_prefix}" == "tr" ]; then
-        peer_agent=Transmission/$(echo ${Transmission_version[1]})
-        peer_id_prefx=-TR$(echo ${Transmission_version[1]} | sed "s/\.//g")0-
+        peer_agent=Transmission/$(echo ${Transmission_version[0]})
+        peer_id_prefx=-TR$(echo ${Transmission_version[0]} | sed "s/\.//g")0-
         user_agent=${peer_agent}
     else
-        peer_agent=aria2/$(echo ${aria2_version[1]})
-        peer_id_prefx=A2-$(echo ${aria2_version[1]} | sed "s/\./\-/g")-
+        peer_agent=aria2/$(echo ${aria2_version[0]})
+        peer_id_prefx=A2-$(echo ${aria2_version[0]} | sed "s/\./\-/g")-
         user_agent=${peer_agent}
     fi
 }
