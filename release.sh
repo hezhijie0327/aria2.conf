@@ -1,6 +1,6 @@
 #!/bin/bash
 
-# Current Version: 1.2.8
+# Current Version: 1.2.9
 
 ## How to get and use?
 # git clone "https://github.com/hezhijie0327/aria2.conf.git" && chmod 0777 ./aria2.conf/release.sh && bash ./aria2.conf/release.sh
@@ -11,10 +11,11 @@ function GetTrackerslistData() {
     excludelist_data=$(curl -s --connect-timeout 15 "https://raw.githubusercontent.com/hezhijie0327/Trackerslist/master/trackerslist_exclude_aria2.txt")
     trackerlist_data=$(curl -s --connect-timeout 15 "https://raw.githubusercontent.com/hezhijie0327/Trackerslist/master/trackerslist_tracker_aria2.txt")
 }
-# Get Transmission Info
-function GetTransmissionInfo() {
-    transmission_id_prefx="-TR$(curl -s --connect-timeout 15 'https://api.github.com/repos/transmission/transmission/releases/latest' | grep 'tag_name' | head -n 1 | awk -F ':' '{ print $2 }' | sed 's/\ //g;s/\"//g;s/\,//g;s/\.//g')0-"
-    transmission_user_agent="Transmission/$(curl -s --connect-timeout 15 'https://api.github.com/repos/transmission/transmission/releases/latest' | grep 'tag_name' | head -n 1 | awk -F ':' '{ print $2 }' | sed 's/\ //g;s/\"//g;s/\,//g')"
+# Get Masquerade Data
+function GetMasqueradeData() {
+    aria2_version=($(curl -s --connect-timeout 15 "https://api.github.com/repos/aria2/aria2/tags" | grep "\"name\"\:" | tr -cd "[:digit:].\n" | grep -E "^[0-9]{1}.[0-9]{2}.[0-9]{1}$" | sort -r | uniq | awk "{ print $2 }"))
+    qBittorrent_version=($(curl -s --connect-timeout 15 "https://api.github.com/repos/qbittorrent/qBittorrent/tags" | grep "\"name\"\:" | tr -cd "[:digit:].\n" | grep -E "^[0-9]{1}.[0-9]{1}.[0-9]{1}$" | sort -r | uniq | awk "{ print $2 }"))
+    Transmission_version=($(curl -s --connect-timeout 15 "https://api.github.com/repos/transmission/transmission/tags" | grep "\"name\"\:" | tr -cd "[:digit:].\n" | grep -E "^[0-9]{1}.[0-9]{1}.[0-9]{1}$" | sort -r | uniq | awk "{ print $2 }"))
 }
 # Generate aria2c Options
 function Generatearia2cOptions() {
@@ -71,7 +72,7 @@ function Generatearia2cOptions() {
         "dht-file-path6=${aria2c_dir}aria2.dht6"
         "dht-file-path=${aria2c_dir}aria2.dht"
         "dht-listen-addr6="
-        "dht-listen-port=6881"
+        "dht-listen-port=6881-6999"
         "dht-message-timeout=5"
         "dir=${aria2c_dir}Downloads"
         "disable-ipv6=false"
@@ -121,7 +122,7 @@ function Generatearia2cOptions() {
         "input-file=${aria2c_dir}aria2.session"
         "interface="
         "keep-unfinished-download-result=true"
-        "listen-port=51413"
+        "listen-port=6881-6999"
         "load-cookies=${aria2c_dir}aria2.cookie"
         "log-level=error"
         "log=${aria2c_dir}aria2.log"
@@ -164,8 +165,8 @@ function Generatearia2cOptions() {
         "parameterized-uri=true"
         "pause-metadata=false"
         "pause=false"
-        "peer-agent=${transmission_user_agent}"
-        "peer-id-prefix=${transmission_id_prefx}"
+        "peer-agent=${peer_agent}"
+        "peer-id-prefix=${peer_id_prefx}"
         "piece-length=4M"
         "private-key="
         "proxy-method=tunnel"
@@ -213,17 +214,33 @@ function Generatearia2cOptions() {
         "truncate-console-readout=true"
         "uri-selector=adaptive"
         "use-head=true"
-        "user-agent=${transmission_user_agent}"
+        "user-agent=${user_agent}"
         "version"
     )
+}
+# Generate Masquerade Info
+function GenerateMasqueradeInfo() {
+    if [ software_prefix == "qb" ]; then
+        peer_agent=qBittorrent/$(echo ${qBittorrent_version[1]})
+        peer_id_prefx=-qB$(echo ${qBittorrent_version[1]} | sed "s/\.//g")0-
+        user_agent=${peer_agent}
+    elif [ software_prefix == "tr" ]; then
+        peer_agent=Transmission/$(echo ${Transmission_version[1]})
+        peer_id_prefx=-TR$(echo ${Transmission_version[1]} | sed "s/\.//g")0-
+        user_agent=${peer_agent}
+    else
+        peer_agent=aria2/$(echo ${aria2_version[1]})
+        peer_id_prefx=A2-$(echo ${aria2_version[1]} | sed "s/\./\-/g")-
+        user_agent=${peer_agent}
+    fi
 }
 # Output aria2c Options
 function Outputaria2cOptions() {
     for aria2c_options_task in "${!aria2c_options[@]}"; do
         if [ "$(echo ${aria2c_options[$aria2c_options_task]} | grep '\=')" != "" ] && [ "$(echo ${aria2c_options[$aria2c_options_task]} | sed 's/^.*\=//g')" != "" ]; then
-            echo "${aria2c_options[$aria2c_options_task]}" >> ./aria2_${os_name}.conf
+            echo "${aria2c_options[$aria2c_options_task]}" >> ./aria2_${software_prefix}_${os_name}.conf
         else
-            echo "#${aria2c_options[$aria2c_options_task]}" >> ./aria2_${os_name}.conf
+            echo "#${aria2c_options[$aria2c_options_task]}" >> ./aria2_${software_prefix}_${os_name}.conf
         fi
     done
 }
@@ -233,13 +250,19 @@ function OutputData() {
     for (( os_task = 0; os_task < 3; os_task++ )); do
         case ${os_task} in
             0)
-            aria2c_dir="/etc/aria2/" && event_poll="epoll" && os_name="linux" && Generatearia2cOptions && Outputaria2cOptions
+            aria2c_dir="/etc/aria2/" && event_poll="epoll" && os_name="linux" && software_prefix="a2" && GenerateMasqueradeInfo && Generatearia2cOptions && Outputaria2cOptions
+            aria2c_dir="/etc/aria2/" && event_poll="epoll" && os_name="linux" && software_prefix="qb" && GenerateMasqueradeInfo && Generatearia2cOptions && Outputaria2cOptions
+            aria2c_dir="/etc/aria2/" && event_poll="epoll" && os_name="linux" && software_prefix="tr" && GenerateMasqueradeInfo && Generatearia2cOptions && Outputaria2cOptions
             ;;
             1)
-            aria2c_dir="/etc/aria2/" && event_poll="kqueue" && os_name="macos" && Generatearia2cOptions && Outputaria2cOptions
+            aria2c_dir="/etc/aria2/" && event_poll="kqueue" && os_name="macos" && software_prefix="a2" && GenerateMasqueradeInfo && Generatearia2cOptions && Outputaria2cOptions
+            aria2c_dir="/etc/aria2/" && event_poll="kqueue" && os_name="macos" && software_prefix="qb" && GenerateMasqueradeInfo && Generatearia2cOptions && Outputaria2cOptions
+            aria2c_dir="/etc/aria2/" && event_poll="kqueue" && os_name="macos" && software_prefix="tr" && GenerateMasqueradeInfo && Generatearia2cOptions && Outputaria2cOptions
             ;;
             2)
-            aria2c_dir="C:\Program Files\\aria2\\" && event_poll="select" && os_name="windows" && Generatearia2cOptions && Outputaria2cOptions
+            aria2c_dir="C:\Program Files\\aria2\\" && event_poll="select" && os_name="windows" && software_prefix="a2" && GenerateMasqueradeInfo && Generatearia2cOptions && Outputaria2cOptions
+            aria2c_dir="C:\Program Files\\aria2\\" && event_poll="select" && os_name="windows" && software_prefix="qb" && GenerateMasqueradeInfo && Generatearia2cOptions && Outputaria2cOptions
+            aria2c_dir="C:\Program Files\\aria2\\" && event_poll="select" && os_name="windows" && software_prefix="tr" && GenerateMasqueradeInfo && Generatearia2cOptions && Outputaria2cOptions
             ;;
         esac
     done
@@ -249,7 +272,7 @@ function OutputData() {
 ## Process
 # Call GetTrackerslistData
 GetTrackerslistData
-# Call GetTransmissionInfo
-GetTransmissionInfo
+# Call GetMasqueradeData
+GetMasqueradeData
 # Call OutputData
 OutputData
