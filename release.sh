@@ -1,6 +1,6 @@
 #!/bin/bash
 
-# Current Version: 1.3.5
+# Current Version: 1.3.6
 
 ## How to get and use?
 # git clone "https://github.com/hezhijie0327/aria2.conf.git" && chmod 0777 ./aria2.conf/release.sh && bash ./aria2.conf/release.sh
@@ -14,6 +14,7 @@ function GetTrackerslistData() {
 # Get Masquerade Data
 function GetMasqueradeData() {
     aria2_version=($(curl -s --connect-timeout 15 "https://api.github.com/repos/aria2/aria2/tags" | grep "\"name\"\:" | tr -cd "[:digit:].\n" | grep -E "^[0-9]{1}.[0-9]{2}.[0-9]{1}$" | sort -r | uniq | awk "{ print $2 }"))
+    curl_version=($(curl -s --connect-timeout 15 "https://api.github.com/repos/curl/curl/tags" | grep "\"name\"\:" | tr -cd "[:digit:]_\n" | grep -E "^[0-9]{1}_[0-9]{2}_[0-9]{1}$" | sort -r | uniq | awk "{ print $2 }"))
     qBittorrent_version=($(curl -s --connect-timeout 15 "https://api.github.com/repos/qbittorrent/qBittorrent/tags" | grep "\"name\"\:" | tr -cd "[:digit:].\n" | grep -E "^[0-9]{1}.[0-9]{1}.[0-9]{1}$" | sort -r | uniq | awk "{ print $2 }"))
     Transmission_version=($(curl -s --connect-timeout 15 "https://api.github.com/repos/transmission/transmission/tags" | grep "\"name\"\:" | tr -cd "[:digit:].\n" | grep -E "^[0-9]{1}.[0-9]{2}$" | sort -r | uniq | awk "{ print $2 }"))
 }
@@ -223,18 +224,18 @@ function GenerateMasqueradeInfo() {
     if [ "${software_prefix}" == "qb" ]; then
         ftp_passwd="QBITTORRENTUSER@"
         peer_agent="qBittorrent/${qBittorrent_version[0]}"
-        peer_id_prefx="-qB$(echo ${qBittorrent_version[0]} | sed "s/\.//g")0-"
-        user_agent="qBittorrent/${qBittorrent_version[0]}"
+        peer_id_prefx="-qB$(echo "${qBittorrent_version[0]}" | sed "s/\.//g")0-"
+        user_agent="curl/$(echo "${curl_version[0]}" | sed "s/\_/\./g")"
     elif [ "${software_prefix}" == "tr" ]; then
         ftp_passwd="TRANSMISSIONUSER@"
         peer_agent="Transmission/${Transmission_version[0]}"
-        peer_id_prefx="-TR$(echo ${Transmission_version[0]} | sed "s/\.//g")0-"
-        user_agent="Transmission/${Transmission_version[0]}"
+        peer_id_prefx="-TR$(echo "${Transmission_version[0]}" | sed "s/\.//g")0-"
+        user_agent="curl/$(echo "${curl_version[0]}" | sed "s/\_/\./g")"
     else
         ftp_passwd="ARIA2USER@"
         peer_agent="aria2/${aria2_version[0]}"
-        peer_id_prefx="A2-$(echo ${aria2_version[0]} | sed "s/\./\-/g")-"
-        user_agent="aria2/${aria2_version[0]}"
+        peer_id_prefx="A2-$(echo "${aria2_version[0]}" | sed "s/\./\-/g")-"
+        user_agent="curl/$(echo "${curl_version[0]}" | sed "s/\_/\./g")"
     fi
 }
 # Output aria2c Options
