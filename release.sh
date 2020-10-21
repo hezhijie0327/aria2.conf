@@ -1,6 +1,6 @@
 #!/bin/bash
 
-# Current Version: 1.4.2
+# Current Version: 1.4.3
 
 ## How to get and use?
 # git clone "https://github.com/hezhijie0327/aria2.conf.git" && bash ./aria2.conf/release.sh
@@ -40,7 +40,7 @@ function Generatearia2cOptions() {
         "bt-hash-check-seed=true"
         "bt-load-saved-metadata=true"
         "bt-lpd-interface="
-        "bt-max-open-files=65536"
+        "bt-max-open-files=4096"
         "bt-max-peers=0"
         "bt-metadata-only=false"
         "bt-min-crypto-level=arc4"
