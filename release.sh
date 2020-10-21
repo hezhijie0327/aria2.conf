@@ -1,6 +1,6 @@
 #!/bin/bash
 
-# Current Version: 1.3.8
+# Current Version: 1.3.9
 
 ## How to get and use?
 # git clone "https://github.com/hezhijie0327/aria2.conf.git" && bash ./aria2.conf/release.sh
@@ -93,8 +93,8 @@ function Generatearia2cOptions() {
         "file-allocation=falloc"
         "follow-metalink=mem"
         "follow-torrent=mem"
-        "force-save=true"
-        "force-sequential=true"
+        "force-save=false"
+        "force-sequential=false"
         "ftp-passwd=${ftp_passwd}"
         "ftp-pasv=true"
         "ftp-proxy-passwd="
