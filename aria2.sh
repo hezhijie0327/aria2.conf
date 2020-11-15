@@ -1,6 +1,6 @@
 #!/bin/bash
 
-# Current Version: 1.0.3
+# Current Version: 1.0.4
 
 ## How to get and use?
 # git clone "https://github.com/hezhijie0327/aria2.conf.git" && chmod 0777 ./aria2.conf/aria2.sh && bash ./aria2.conf/aria2.sh
@@ -10,6 +10,9 @@ aria2c_pid=$(ps -ef | grep "aria2c" | grep -v "grep" | awk '{ print $2 }')
 if [ "${aria2c_pid}" == "" ]; then
     if [ ! -d "/etc/aria2/Downloads" ]; then
         mkdir "/etc/aria2/Downloads"
+    fi
+    if [ ! -f "/etc/aria2/aria2.conf" ]; then
+        curl "https://source.zhijie.online/aria2.conf/master/aria2_qb_linux.conf" > "/etc/aria2/aria2.conf"
     fi
     if [ ! -f "/etc/aria2/aria2.cookie" ]; then
         touch "/etc/aria2/aria2.cookie"
