@@ -1,6 +1,6 @@
 #!/bin/bash
 
-# Current Version: 1.4.5
+# Current Version: 1.4.6
 
 ## How to get and use?
 # git clone "https://github.com/hezhijie0327/aria2.conf.git" && bash ./aria2.conf/release.sh
@@ -8,8 +8,8 @@
 ## Function
 # Get Trackerslist Data
 function GetTrackerslistData() {
-    excludelist_data=$(curl -s --connect-timeout 15 "https://raw.githubusercontent.com/hezhijie0327/Trackerslist/master/trackerslist_exclude_aria2.txt")
-    trackerlist_data=$(curl -s --connect-timeout 15 "https://raw.githubusercontent.com/hezhijie0327/Trackerslist/master/trackerslist_tracker_aria2.txt")
+    excludelist_data=$(curl -s --connect-timeout 15 "https://raw.githubusercontent.com/hezhijie0327/Trackerslist/main/trackerslist_exclude_aria2.txt")
+    trackerlist_data=$(curl -s --connect-timeout 15 "https://raw.githubusercontent.com/hezhijie0327/Trackerslist/main/trackerslist_tracker_aria2.txt")
 }
 # Get Masquerade Data
 function GetMasqueradeData() {
