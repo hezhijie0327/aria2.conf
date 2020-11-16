@@ -1,6 +1,6 @@
 #!/bin/bash
 
-# Current Version: 1.4.8
+# Current Version: 1.4.9
 
 ## How to get and use?
 # git clone "https://github.com/hezhijie0327/aria2.conf.git" && bash ./aria2.conf/release.sh
@@ -66,7 +66,7 @@ function Generatearia2cOptions() {
         "console-log-level=error"
         "content-disposition-default-utf8=true"
         "continue=true"
-        "daemon=true"
+        "daemon=false"
         "deferred-input=false"
         "dht-entry-point6=dht.transmissionbt.com:6881"
         "dht-entry-point=dht.transmissionbt.com:6881"
