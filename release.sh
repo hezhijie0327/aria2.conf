@@ -1,6 +1,6 @@
 #!/bin/bash
 
-# Current Version: 1.4.4
+# Current Version: 1.4.5
 
 ## How to get and use?
 # git clone "https://github.com/hezhijie0327/aria2.conf.git" && bash ./aria2.conf/release.sh
@@ -61,7 +61,7 @@ function Generatearia2cOptions() {
         "check-integrity=true"
         "checksum="
         "conditional-get=true"
-        "conf-path=${aria2c_dir}aria2.conf"
+        "conf-path=${aria2c_dir}${aria2c_conf_dir}aria2.conf"
         "connect-timeout=5"
         "console-log-level=error"
         "content-disposition-default-utf8=true"
@@ -70,12 +70,12 @@ function Generatearia2cOptions() {
         "deferred-input=false"
         "dht-entry-point6=dht.transmissionbt.com:6881"
         "dht-entry-point=dht.transmissionbt.com:6881"
-        "dht-file-path6=${aria2c_dir}aria2.dht6"
-        "dht-file-path=${aria2c_dir}aria2.dht"
+        "dht-file-path6=${aria2c_dir}${aria2c_work_dir}aria2.dht6"
+        "dht-file-path=${aria2c_dir}${aria2c_work_dir}aria2.dht"
         "dht-listen-addr6="
         "dht-listen-port=6881-6889,51413"
         "dht-message-timeout=5"
-        "dir=${aria2c_dir}Downloads"
+        "dir=${aria2c_dir}${aria2c_data_dir}"
         "disable-ipv6=false"
         "disk-cache=256M"
         "download-result=full"
@@ -120,13 +120,13 @@ function Generatearia2cOptions() {
         "https-proxy="
         "human-readable=true"
         "index-out="
-        "input-file=${aria2c_dir}aria2.session"
+        "input-file=${aria2c_dir}${aria2c_work_dir}aria2.session"
         "interface="
         "keep-unfinished-download-result=true"
         "listen-port=6881-6889,51413"
-        "load-cookies=${aria2c_dir}aria2.cookie"
+        "load-cookies=${aria2c_dir}${aria2c_work_dir}aria2.cookie"
         "log-level=error"
-        "log=${aria2c_dir}aria2.log"
+        "log=${aria2c_dir}${aria2c_work_dir}aria2.log"
         "lowest-speed-limit=0"
         "max-concurrent-downloads=10"
         "max-connection-per-server=16"
@@ -150,7 +150,7 @@ function Generatearia2cOptions() {
         "min-split-size=4M"
         "min-tls-version=TLSv1.2"
         "multiple-interface="
-        "netrc-path=${aria2c_dir}aria2.netrc"
+        "netrc-path=${aria2c_dir}${aria2c_work_dir}aria2.netrc"
         "no-conf=false"
         "no-file-allocation-limit=4M"
         "no-netrc=false"
@@ -180,25 +180,25 @@ function Generatearia2cOptions() {
         "reuse-uri=true"
         "rlimit-nofile="
         "rpc-allow-origin-all=true"
-        "rpc-certificate="
+        "rpc-certificate=${aria2c_dir}${aria2c_cert_dir}fullchain.pem"
         "rpc-listen-all=true"
         "rpc-listen-port=6800"
         "rpc-max-request-size=4M"
         "rpc-passwd="
-        "rpc-private-key="
+        "rpc-private-key=${aria2c_dir}${aria2c_cert_dir}privkey.pem"
         "rpc-save-upload-metadata=true"
         "rpc-secret="
         "rpc-secure=false"
         "rpc-user="
-        "save-cookies=${aria2c_dir}aria2.cookie"
+        "save-cookies=${aria2c_dir}${aria2c_work_dir}aria2.cookie"
         "save-not-found=true"
         "save-session-interval=5"
-        "save-session=${aria2c_dir}aria2.session"
+        "save-session=${aria2c_dir}${aria2c_work_dir}aria2.session"
         "seed-ratio=1.0"
         "seed-time=60"
         "select-file="
-        "server-stat-if=${aria2c_dir}aria2.stat"
-        "server-stat-of=${aria2c_dir}aria2.stat"
+        "server-stat-if=${aria2c_dir}${aria2c_work_dir}aria2.stat"
+        "server-stat-of=${aria2c_dir}${aria2c_work_dir}aria2.stat"
         "server-stat-timeout=3600"
         "show-console-readout=true"
         "show-files=true"
@@ -254,19 +254,19 @@ function OutputData() {
     for (( os_task = 0; os_task < 3; os_task++ )); do
         case ${os_task} in
             0)
-            aria2c_dir="/etc/aria2/" && event_poll="epoll" && os_name="linux" && software_prefix="a2" && GenerateMasqueradeInfo && Generatearia2cOptions && Outputaria2cOptions
-            aria2c_dir="/etc/aria2/" && event_poll="epoll" && os_name="linux" && software_prefix="qb" && GenerateMasqueradeInfo && Generatearia2cOptions && Outputaria2cOptions
-            aria2c_dir="/etc/aria2/" && event_poll="epoll" && os_name="linux" && software_prefix="tr" && GenerateMasqueradeInfo && Generatearia2cOptions && Outputaria2cOptions
+            aria2c_dir="/etc/aria2/" && aria2c_cert_dir="cert/" && aria2c_conf_dir="conf/" && aria2c_data_dir="data" && aria2c_conf_work="work/" && event_poll="epoll" && os_name="linux" && software_prefix="a2" && GenerateMasqueradeInfo && Generatearia2cOptions && Outputaria2cOptions
+            aria2c_dir="/etc/aria2/" && aria2c_cert_dir="cert/" && aria2c_conf_dir="conf/" && aria2c_data_dir="data" && aria2c_conf_work="work/" && event_poll="epoll" && os_name="linux" && software_prefix="qb" && GenerateMasqueradeInfo && Generatearia2cOptions && Outputaria2cOptions
+            aria2c_dir="/etc/aria2/" && aria2c_cert_dir="cert/" && aria2c_conf_dir="conf/" && aria2c_data_dir="data" && aria2c_conf_work="work/" && event_poll="epoll" && os_name="linux" && software_prefix="tr" && GenerateMasqueradeInfo && Generatearia2cOptions && Outputaria2cOptions
             ;;
             1)
-            aria2c_dir="/etc/aria2/" && event_poll="kqueue" && os_name="macos" && software_prefix="a2" && GenerateMasqueradeInfo && Generatearia2cOptions && Outputaria2cOptions
-            aria2c_dir="/etc/aria2/" && event_poll="kqueue" && os_name="macos" && software_prefix="qb" && GenerateMasqueradeInfo && Generatearia2cOptions && Outputaria2cOptions
-            aria2c_dir="/etc/aria2/" && event_poll="kqueue" && os_name="macos" && software_prefix="tr" && GenerateMasqueradeInfo && Generatearia2cOptions && Outputaria2cOptions
+            aria2c_dir="/etc/aria2/" && aria2c_cert_dir="cert/" && aria2c_conf_dir="conf/" && aria2c_data_dir="data" && aria2c_conf_work="work/" && event_poll="kqueue" && os_name="macos" && software_prefix="a2" && GenerateMasqueradeInfo && Generatearia2cOptions && Outputaria2cOptions
+            aria2c_dir="/etc/aria2/" && aria2c_cert_dir="cert/" && aria2c_conf_dir="conf/" && aria2c_data_dir="data" && aria2c_conf_work="work/" && event_poll="kqueue" && os_name="macos" && software_prefix="qb" && GenerateMasqueradeInfo && Generatearia2cOptions && Outputaria2cOptions
+            aria2c_dir="/etc/aria2/" && aria2c_cert_dir="cert/" && aria2c_conf_dir="conf/" && aria2c_data_dir="data" && aria2c_conf_work="work/" && event_poll="kqueue" && os_name="macos" && software_prefix="tr" && GenerateMasqueradeInfo && Generatearia2cOptions && Outputaria2cOptions
             ;;
             2)
-            aria2c_dir="C:\Program Files\\aria2\\" && event_poll="select" && os_name="windows" && software_prefix="a2" && GenerateMasqueradeInfo && Generatearia2cOptions && Outputaria2cOptions
-            aria2c_dir="C:\Program Files\\aria2\\" && event_poll="select" && os_name="windows" && software_prefix="qb" && GenerateMasqueradeInfo && Generatearia2cOptions && Outputaria2cOptions
-            aria2c_dir="C:\Program Files\\aria2\\" && event_poll="select" && os_name="windows" && software_prefix="tr" && GenerateMasqueradeInfo && Generatearia2cOptions && Outputaria2cOptions
+            aria2c_dir="C:\Program Files\\aria2\\" && aria2c_cert_dir="cert\\" && aria2c_conf_dir="conf\\" && aria2c_data_dir="data" && aria2c_conf_work="work\\" && event_poll="select" && os_name="windows" && software_prefix="a2" && GenerateMasqueradeInfo && Generatearia2cOptions && Outputaria2cOptions
+            aria2c_dir="C:\Program Files\\aria2\\" && aria2c_cert_dir="cert\\" && aria2c_conf_dir="conf\\" && aria2c_data_dir="data" && aria2c_conf_work="work\\" && event_poll="select" && os_name="windows" && software_prefix="qb" && GenerateMasqueradeInfo && Generatearia2cOptions && Outputaria2cOptions
+            aria2c_dir="C:\Program Files\\aria2\\" && aria2c_cert_dir="cert\\" && aria2c_conf_dir="conf\\" && aria2c_data_dir="data" && aria2c_conf_work="work\\" && event_poll="select" && os_name="windows" && software_prefix="tr" && GenerateMasqueradeInfo && Generatearia2cOptions && Outputaria2cOptions
             ;;
         esac
     done
