@@ -1,9 +1,9 @@
 #!/bin/bash
 
-# Current Version: 1.0.8
+# Current Version: 1.0.9
 
 ## How to get and use?
-# git clone "https://github.com/hezhijie0327/aria2.conf.git" && chmod 0777 ./aria2.conf/aria2.sh && bash ./aria2.conf/aria2.sh
+# git clone "https://github.com/hezhijie0327/aria2.conf.git" && bash ./aria2.conf/aria2.sh
 
 aria2c_pid=$(ps -ef | grep "aria2c" | grep -v "grep" | awk '{ print $2 }')
 
