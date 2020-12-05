@@ -1,6 +1,6 @@
 #!/bin/bash
 
-# Current Version: 1.4.9
+# Current Version: 1.5.0
 
 ## How to get and use?
 # git clone "https://github.com/hezhijie0327/aria2.conf.git" && bash ./aria2.conf/release.sh
@@ -25,7 +25,7 @@ function Generatearia2cOptions() {
         "all-proxy-user="
         "all-proxy="
         "allow-overwrite=true"
-        "allow-piece-length-change=false"
+        "allow-piece-length-change=true"
         "always-resume=true"
         "async-dns-server="
         "async-dns=true"
