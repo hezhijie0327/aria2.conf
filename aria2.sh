@@ -1,6 +1,6 @@
 #!/bin/bash
 
-# Current Version: 1.1.2
+# Current Version: 1.1.3
 
 ## How to get and use?
 # git clone "https://github.com/hezhijie0327/aria2.conf.git" && bash ./aria2.conf/aria2.sh
@@ -24,10 +24,10 @@ if [ "${aria2c_pid}" == "" ]; then
         mkdir "/etc/aria2/work"
     fi
     if [ ! -f "/etc/aria2/conf/aria2.conf" ]; then
-        wget -O "/etc/aria2/conf/aria2.conf" "https://source.zhijie.online/aria2.conf/main/aria2_qb_linux.conf"
+        wget -O "/etc/aria2/conf/aria2.conf" "https://source.zhijie.online/aria2.conf/main/aria2_qb_linux.conf" && echo "$[$(date '+%s') + 86400]" > "/etc/aria2/work/aria2.exp"
     else
-        if [ "$[$(date '+%s') - $(cat '/etc/aria2/work/aria2.runtime')]" -gt "86400" ]; then
-            wget -qO- "https://source.zhijie.online/aria2.conf/main/aria2_qb_linux.conf" | sed "s/\#rpc\-certificate\=\/etc\/aria2\/cert\/fullchain\.pem/$(cat '/etc/aria2/conf/aria2.conf' | grep 'rpc\-certificate' | sed 's/\//\\\//g')/g;s/\#rpc\-private\-key\=\/etc\/aria2\/cert\/privkey\.pem/$(cat '/etc/aria2/conf/aria2.conf' | grep 'rpc\-private\-key' | sed 's/\//\\\//g')/g;s/\#rpc\-secret\=/$(cat '/etc/aria2/conf/aria2.conf' | grep 'rpc\-secret')/g;s/rpc\-secure\=false/$(cat '/etc/aria2/conf/aria2.conf' | grep 'rpc\-secure')/g" > "/etc/aria2/conf/aria2.conf" && echo "$(date '+%s')" > "/etc/aria2/work/aria2.runtime"
+        if [ "$(cat '/etc/aria2/work/aria2.exp')" -le "$(date '+%s')" ]; then
+            wget -qO- "https://source.zhijie.online/aria2.conf/main/aria2_qb_linux.conf" | sed "s/\#rpc\-certificate\=\/etc\/aria2\/cert\/fullchain\.pem/$(cat '/etc/aria2/conf/aria2.conf' | grep 'rpc\-certificate' | sed 's/\//\\\//g')/g;s/\#rpc\-private\-key\=\/etc\/aria2\/cert\/privkey\.pem/$(cat '/etc/aria2/conf/aria2.conf' | grep 'rpc\-private\-key' | sed 's/\//\\\//g')/g;s/\#rpc\-secret\=/$(cat '/etc/aria2/conf/aria2.conf' | grep 'rpc\-secret')/g;s/rpc\-secure\=false/$(cat '/etc/aria2/conf/aria2.conf' | grep 'rpc\-secure')/g" > "/etc/aria2/conf/aria2.conf" && echo "$[$(date '+%s') + 86400]" > "/etc/aria2/work/aria2.exp"
         fi
     fi
     if [ ! -f "/etc/aria2/work/aria2.cookie" ]; then
@@ -44,9 +44,6 @@ if [ "${aria2c_pid}" == "" ]; then
     fi
     if [ ! -f "/etc/aria2/work/aria2.netrc" ]; then
         touch "/etc/aria2/work/aria2.netrc"
-    fi
-    if [ ! -f "/etc/aria2/work/aria2.runtime" ]; then
-        echo "$(date '+%s')" > "/etc/aria2/work/aria2.runtime"
     fi
     if [ ! -f "/etc/aria2/work/aria2.session" ]; then
         touch "/etc/aria2/work/aria2.session"
