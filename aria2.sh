@@ -1,6 +1,6 @@
 #!/bin/bash
 
-# Current Version: 1.1.4
+# Current Version: 1.1.5
 
 ## How to get and use?
 # git clone "https://github.com/hezhijie0327/aria2.conf.git" && bash ./aria2.conf/aria2.sh
@@ -26,7 +26,7 @@ if [ "${aria2c_pid}" == "" ]; then
     if [ ! -f "/etc/aria2/conf/aria2.conf" ]; then
         wget -O "/etc/aria2/conf/aria2.conf" "https://source.zhijie.online/aria2.conf/main/aria2_qb_linux.conf" && echo "$[$(date '+%s') + 86400]" > "/etc/aria2/work/aria2.exp"
     else
-        if [ ! -f "/etc/aria2/work/aria2.cookie" ]; then
+        if [ ! -f "/etc/aria2/work/aria2.exp" ]; then
             echo "$[$(date '+%s') + 86400]" > "/etc/aria2/work/aria2.exp"
         fi
         if [ "$(cat '/etc/aria2/work/aria2.exp')" -le "$(date '+%s')" ]; then
