@@ -1,6 +1,6 @@
 #!/bin/bash
 
-# Current Version: 1.1.0
+# Current Version: 1.1.1
 
 ## How to get and use?
 # git clone "https://github.com/hezhijie0327/aria2.conf.git" && bash ./aria2.conf/aria2.sh
@@ -50,7 +50,7 @@ if [ "${aria2c_pid}" == "" ]; then
     if [ ! -f "/etc/aria2/work/aria2.stat" ]; then
         touch "/etc/aria2/work/aria2.stat"
     fi
-    if [ "$[$(date '+%s') - $(cat '/etc/aria2/work/aria2.runtime'))]" -gt "86400" ]; then
+    if [ "$[$(date '+%s') - $(cat '/etc/aria2/work/aria2.runtime')]" -gt "86400" ]; then
         wget -qO- "https://source.zhijie.online/aria2.conf/main/aria2_qb_linux.conf" | sed "s/\#rpc\-certificate\=\/etc\/aria2\/cert\/fullchain\.pem/$(cat '/etc/aria2/conf/aria2.conf' | grep 'rpc\-certificate' | sed 's/\//\\\//g')/g;s/\#rpc\-private\-key\=\/etc\/aria2\/cert\/privkey\.pem/$(cat '/etc/aria2/conf/aria2.conf' | grep 'rpc\-private\-key' | sed 's/\//\\\//g')/g;s/\#rpc\-secret\=/$(cat '/etc/aria2/conf/aria2.conf' | grep 'rpc\-secret')/g;s/rpc\-secure\=false/$(cat '/etc/aria2/conf/aria2.conf' | grep 'rpc\-secure')/g" > "/etc/aria2/conf/aria2.conf"
         echo "$(date '+%s')" > "/etc/aria2/work/aria2.runtime"
     fi
