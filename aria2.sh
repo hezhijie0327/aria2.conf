@@ -1,6 +1,6 @@
 #!/bin/bash
 
-# Current Version: 1.0.0
+# Current Version: 1.0.1
 
 ## How to get and use?
 # git clone "https://github.com/hezhijie0327/aria2.conf.git" && bash ./aria2.conf/aria2.sh -c https://www.zhijie.online -e 86400 -m a2 -s true -u true
@@ -182,7 +182,7 @@ function GetRemoteConfigurationFile() {
 function SelfUpdate() {
     if [ "${ipv4_address}" != "" ] || [ "${ipv6_address}" != "" ]; then
         if [ "${SELFUPDATE}" == "true" ] && [ "${expired_date}" -le "${current_date}" ]; then
-            ARIA2_SH=$(wget -qO- "https://source.zhijie.online/aria2.conf/main/aria2.sh")
+            ARIA2_SH=$(wget -qO- "https://source.zhijie.online/aria2.conf/source/aria2.sh")
             if [ "$(cat '/etc/aria2/aria2.sh' | grep 'Current\ Version' | sed 's/\#\ Current\ Version\:\ //g')" != "$(echo ${ARIA2_SH} | grep 'Current\ Version' | sed 's/\#\ Current\ Version\:\ //g')" ]; then
                 echo "${ARIA2_SH}" > "/etc/aria2/aria2.sh"
             fi && echo "$(( $(date '+%s') + ${EXPIRATION} ))" > "/etc/aria2/work/aria2.exp"
