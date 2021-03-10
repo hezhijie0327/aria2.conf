@@ -1,6 +1,6 @@
 #!/bin/bash
 
-# Current Version: 1.0.0
+# Current Version: 1.0.1
 
 ## How to get and use?
 # git clone "https://github.com/hezhijie0327/aria2.conf.git" && bash ./aria2.conf/release.sh
@@ -148,12 +148,12 @@ function Generatearia2cOptions() {
         "metalink-os="
         "metalink-preferred-protocol=https"
         "metalink-version="
-        "min-split-size=4M"
+        "min-split-size=4K"
         "min-tls-version=TLSv1.2"
         "multiple-interface="
         "netrc-path=${aria2c_dir}${aria2c_work_dir}aria2.netrc"
         "no-conf=false"
-        "no-file-allocation-limit=4M"
+        "no-file-allocation-limit=4K"
         "no-netrc=false"
         "no-proxy="
         "on-bt-download-complete="
@@ -169,7 +169,7 @@ function Generatearia2cOptions() {
         "pause=false"
         "peer-agent=${peer_agent}"
         "peer-id-prefix=${peer_id_prefx}"
-        "piece-length=4M"
+        "piece-length=4K"
         "private-key="
         "proxy-method=tunnel"
         "quiet=false"
