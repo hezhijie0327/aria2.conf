@@ -1,9 +1,9 @@
 #!/bin/bash
 
-# Current Version: 1.0.1
+# Current Version: 1.0.2
 
 ## How to get and use?
-# git clone "https://github.com/hezhijie0327/aria2.conf.git" && bash ./aria2.conf/aria2.sh -c https://www.zhijie.online -e 86400 -m a2 -s true -u true
+# git clone "https://github.com/hezhijie0327/aria2.conf.git" && bash ./aria2.conf/aria2.sh -c https://alidns.com -e 86400 -m a2 -s true -u true
 
 ## Parameter
 while getopts c:e:m:s:u: GetParameter; do
