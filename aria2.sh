@@ -1,6 +1,6 @@
 #!/bin/bash
 
-# Current Version: 1.0.2
+# Current Version: 1.0.3
 
 ## How to get and use?
 # git clone "https://github.com/hezhijie0327/aria2.conf.git" && bash ./aria2.conf/aria2.sh -c https://alidns.com -e 86400 -m a2 -s true -u true
@@ -124,12 +124,16 @@ function Getaria2cFunction() {
         fi
     }
     function Getaria2cThread() {
-        for aria2c_max_thread in 256 64 16; do
-            aria2c -x "${aria2c_max_thread}" --dry-run "${CHECKALIVE}" > "/dev/null" 2>&1
-            if [ "$?" -eq "0" ]; then
-                break
-            fi
-        done
+        if [ -f "/proc/cpuinfo" ]; then
+            for aria2c_max_thread in $(( $(cat "/proc/cpuinfo" | grep "processor" | wc -l) * 64 )) 16; do
+                aria2c -x "${aria2c_max_thread}" --dry-run "${CHECKALIVE}" > "/dev/null" 2>&1
+                if [ "$?" -eq "0" ]; then
+                    break
+                fi
+            done
+        else
+            aria2c_max_thread="16"
+        fi
         if [ "${aria2c_max_thread}" != "16" ]; then
             aria2c_thread_option="s/max\-connection\-per\-server\=16/max\-connection\-per\-server\=${aria2c_max_thread}/g;s/split\=16/split\=${aria2c_max_thread}/g;"
         fi
