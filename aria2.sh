@@ -1,6 +1,6 @@
 #!/bin/bash
 
-# Current Version: 1.0.6
+# Current Version: 1.0.7
 
 ## How to get and use?
 # git clone "https://github.com/hezhijie0327/aria2.conf.git" && bash ./aria2.conf/aria2.sh -c https://alidns.com -e 86400 -m a2 -s true -u true
@@ -130,7 +130,7 @@ function Getaria2cFunction() {
         ipv6_address=$(echo "${current_ip}" | grep -E "^(([0-9a-f]{1,4}:){7,7}[0-9a-f]{1,4}|([0-9a-f]{1,4}:){1,7}:|([0-9a-f]{1,4}:){1,6}:[0-9a-f]{1,4}|([0-9a-f]{1,4}:){1,5}(:[0-9a-f]{1,4}){1,2}|([0-9a-f]{1,4}:){1,4}(:[0-9a-f]{1,4}){1,3}|([0-9a-f]{1,4}:){1,3}(:[0-9a-f]{1,4}){1,4}|([0-9a-f]{1,4}:){1,2}(:[0-9a-f]{1,4}){1,5}|[0-9a-f]{1,4}:((:[0-9a-f]{1,4}){1,6})|:((:[0-9a-f]{1,4}){1,7}|:)|fe80:(:[0-9a-f]{0,4}){0,4}%[0-9a-z]{1,}|::(ffff(:0{1,4}){0,1}:){0,1}((25[0-5]|(2[0-4]|1{0,1}[0-9]){0,1}[0-9])\.){3,3}(25[0-5]|(2[0-4]|1{0,1}[0-9]){0,1}[0-9])|([0-9a-f]{1,4}:){1,4}:((25[0-5]|(2[0-4]|1{0,1}[0-9]){0,1}[0-9])\.){3,3}(25[0-5]|(2[0-4]|1{0,1}[0-9]){0,1}[0-9]))$")
         ipv6_interface=$(echo "${current_interface}" | grep "inet6")
         if [ "${ipv6_address}" == "" ] && [ "${ipv6_interface}" == "" ]; then
-            aria2c_ipv6_option="s/dht\-entry\-point6\=/\#dht\-entry\-point6\=/g;s/dht\-file\-path6\=/\#dht\-file\-path6\=/g;s/disable\-ipv6\=false/disable\-ipv6\=true/g;s/enable\-dht6\=true/enable\-dht6\=false/g;"
+            aria2c_ipv6_option="s/dht\-entry\-point6\=/\#dht\-entry\-point6\=/g;s/dht\-file\-path6\=/\#dht\-file\-path6\=/g;s/disable\-ipv6\=false/disable\-ipv6\=true/g;s/enable\-async\-dns6\=true/enable\-async\-dns6\=false/g;s/enable\-dht6\=true/enable\-dht6\=false/g;"
         fi
     }
     function Getaria2cThread() {
