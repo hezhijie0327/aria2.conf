@@ -1,6 +1,6 @@
 #!/bin/bash
 
-# Current Version: 1.0.1
+# Current Version: 1.0.2
 
 ## How to get and use?
 # git clone "https://github.com/hezhijie0327/aria2.conf.git" && bash ./aria2.conf/release.sh
@@ -77,7 +77,7 @@ function Generatearia2cOptions() {
         "dht-message-timeout=5"
         "dir=${aria2c_dir}${aria2c_data_dir}"
         "disable-ipv6=false"
-        "disk-cache=256M"
+        "disk-cache=0"
         "download-result=full"
         "dry-run=false"
         "dscp=32"
