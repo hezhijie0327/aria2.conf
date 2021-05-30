@@ -1,6 +1,6 @@
 #!/bin/bash
 
-# Current Version: 1.0.3
+# Current Version: 1.0.4
 
 ## How to get and use?
 # git clone "https://github.com/hezhijie0327/aria2.conf.git" && bash ./aria2.conf/aria2.sh -c https://alidns.com -e 86400 -m a2 -s true -u true
@@ -112,6 +112,16 @@ function CheckRequirement() {
 }
 # Get aria2c Function
 function Getaria2cFunction() {
+    function Getaria2cMemory() {
+        if [ -f "/proc/meminfo" ]; then
+            aria2c_max_memory=$(( $(cat "/proc/meminfo" | tr "A-Z" "a-z" | grep "memtotal" | tr -d " :a-z") * 1024 / 8 ))
+        else
+            aria2c_max_memory="0"
+        fi
+        if [ "${aria2c_max_memory}" != "0" ]; then
+            aria2c_thread_option="s/disk\-cache\=0/disk\-cache\=${aria2c_max_memory}/g;"
+        fi
+    }
     function Getaria2cNetwork() {
         current_ip=$(wget -qO- "https://ifconfig.zhijie.online/ip" | grep '"ip"' | sed "s/\ \ \"ip\"\:\ \"//g;s/\"\,//g")
         current_interface=$(ifconfig -a | grep "inet")
@@ -144,7 +154,7 @@ function Getaria2cFunction() {
     aria2c_retry_on_403=$(echo "${aria2c_function}" | grep "\-\-retry\-on\-403")
     aria2c_retry_on_406=$(echo "${aria2c_function}" | grep "\-\-retry\-on\-406")
     aria2c_retry_on_unknown=$(echo "${aria2c_function}" | grep "\-\-retry\-on\-unknown")
-    Getaria2cNetwork && Getaria2cThread && aria2c_extra_option="${aria2c_ipv6_option}${aria2c_thread_option}"
+    Getaria2cMemory && Getaria2cNetwork && Getaria2cThread && aria2c_extra_option="${aria2c_ipv6_option}${aria2c_thread_option}"
     if [ "${aria2c_http_want_digest}" != "" ]; then
         aria2c_extra_option="${aria2c_extra_option}s/\#http\-want\-digest\=/http\-want\-digest\=false/g;"
     fi
