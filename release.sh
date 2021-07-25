@@ -1,6 +1,6 @@
 #!/bin/bash
 
-# Current Version: 1.0.3
+# Current Version: 1.0.4
 
 ## How to get and use?
 # git clone "https://github.com/hezhijie0327/aria2.conf.git" && bash ./aria2.conf/release.sh
@@ -44,6 +44,7 @@ function Generatearia2cOptions() {
         "bt-max-peers=0"
         "bt-metadata-only=false"
         "bt-min-crypto-level=arc4"
+        "bt-piece-selector="
         "bt-prioritize-piece=head,tail"
         "bt-remove-unselected-file=true"
         "bt-request-peer-speed-limit=125M"
@@ -214,7 +215,7 @@ function Generatearia2cOptions() {
         "stderr=true"
         "stop-with-process="
         "stop=0"
-        "stream-piece-selector=random"
+        "stream-piece-selector=inorder"
         "summary-interval=1"
         "timeout=5"
         "torrent-file="
