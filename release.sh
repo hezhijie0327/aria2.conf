@@ -1,6 +1,6 @@
 #!/bin/bash
 
-# Current Version: 1.0.4
+# Current Version: 1.0.5
 
 ## How to get and use?
 # git clone "https://github.com/hezhijie0327/aria2.conf.git" && bash ./aria2.conf/release.sh
@@ -56,6 +56,9 @@ function Generatearia2cOptions() {
         "bt-tracker-interval=1"
         "bt-tracker-timeout=5"
         "bt-tracker=${trackerlist_data}"
+        "bt-udp-socks-proxy-passwd="
+        "bt-udp-socks-proxy-user="
+        "bt-udp-socks-proxy="
         "ca-certificate="
         "certificate="
         "check-certificate=true"
