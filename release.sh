@@ -1,6 +1,6 @@
 #!/bin/bash
 
-# Current Version: 1.0.6
+# Current Version: 1.0.7
 
 ## How to get and use?
 # git clone "https://github.com/hezhijie0327/aria2.conf.git" && bash ./aria2.conf/release.sh
@@ -67,7 +67,7 @@ function Generatearia2cOptions() {
         "conditional-get=false"
         "conf-path=${aria2c_dir}${aria2c_conf_dir}aria2.conf"
         "connect-timeout=5"
-        "console-log-level=error"
+        "console-log-level=info"
         "content-disposition-default-utf8=true"
         "continue=true"
         "daemon=false"
@@ -95,7 +95,7 @@ function Generatearia2cOptions() {
         "enable-peer-exchange=true"
         "enable-rpc=true"
         "event-poll=${event_poll}"
-        "file-allocation=falloc"
+        "file-allocation=${file_allocation}"
         "follow-metalink=mem"
         "follow-torrent=mem"
         "force-save=true"
@@ -219,7 +219,7 @@ function Generatearia2cOptions() {
         "stop-with-process="
         "stop=0"
         "stream-piece-selector=inorder"
-        "summary-interval=1"
+        "summary-interval=0"
         "timeout=5"
         "torrent-file="
         "truncate-console-readout=true"
@@ -263,15 +263,15 @@ function Outputaria2cOptions() {
 # Output Data
 function OutputData() {
     rm -rf ./aria2_*.conf
-    aria2c_dir="/etc/aria2/" && aria2c_cert_dir="cert/" && aria2c_conf_dir="conf/" && aria2c_data_dir="data" && aria2c_work_dir="work/" && event_poll="epoll" && os_name="linux" && software_prefix="a2" && GenerateMasqueradeInfo && Generatearia2cOptions && Outputaria2cOptions
-    aria2c_dir="/etc/aria2/" && aria2c_cert_dir="cert/" && aria2c_conf_dir="conf/" && aria2c_data_dir="data" && aria2c_work_dir="work/" && event_poll="epoll" && os_name="linux" && software_prefix="qb" && GenerateMasqueradeInfo && Generatearia2cOptions && Outputaria2cOptions
-    aria2c_dir="/etc/aria2/" && aria2c_cert_dir="cert/" && aria2c_conf_dir="conf/" && aria2c_data_dir="data" && aria2c_work_dir="work/" && event_poll="epoll" && os_name="linux" && software_prefix="tr" && GenerateMasqueradeInfo && Generatearia2cOptions && Outputaria2cOptions
-    aria2c_dir="/etc/aria2/" && aria2c_cert_dir="cert/" && aria2c_conf_dir="conf/" && aria2c_data_dir="data" && aria2c_work_dir="work/" && event_poll="kqueue" && os_name="macos" && software_prefix="a2" && GenerateMasqueradeInfo && Generatearia2cOptions && Outputaria2cOptions
-    aria2c_dir="/etc/aria2/" && aria2c_cert_dir="cert/" && aria2c_conf_dir="conf/" && aria2c_data_dir="data" && aria2c_work_dir="work/" && event_poll="kqueue" && os_name="macos" && software_prefix="qb" && GenerateMasqueradeInfo && Generatearia2cOptions && Outputaria2cOptions
-    aria2c_dir="/etc/aria2/" && aria2c_cert_dir="cert/" && aria2c_conf_dir="conf/" && aria2c_data_dir="data" && aria2c_work_dir="work/" && event_poll="kqueue" && os_name="macos" && software_prefix="tr" && GenerateMasqueradeInfo && Generatearia2cOptions && Outputaria2cOptions
-    aria2c_dir="C:\Program Files\\aria2\\" && aria2c_cert_dir="cert\\" && aria2c_conf_dir="conf\\" && aria2c_data_dir="data" && aria2c_work_dir="work\\" && event_poll="select" && os_name="windows" && software_prefix="a2" && GenerateMasqueradeInfo && Generatearia2cOptions && Outputaria2cOptions
-    aria2c_dir="C:\Program Files\\aria2\\" && aria2c_cert_dir="cert\\" && aria2c_conf_dir="conf\\" && aria2c_data_dir="data" && aria2c_work_dir="work\\" && event_poll="select" && os_name="windows" && software_prefix="qb" && GenerateMasqueradeInfo && Generatearia2cOptions && Outputaria2cOptions
-    aria2c_dir="C:\Program Files\\aria2\\" && aria2c_cert_dir="cert\\" && aria2c_conf_dir="conf\\" && aria2c_data_dir="data" && aria2c_work_dir="work\\" && event_poll="select" && os_name="windows" && software_prefix="tr" && GenerateMasqueradeInfo && Generatearia2cOptions && Outputaria2cOptions
+    aria2c_dir="/etc/aria2/" && aria2c_cert_dir="cert/" && aria2c_conf_dir="conf/" && aria2c_data_dir="data" && aria2c_work_dir="work/" && event_poll="epoll" && file_allocation="falloc" && os_name="linux" && software_prefix="a2" && GenerateMasqueradeInfo && Generatearia2cOptions && Outputaria2cOptions
+    aria2c_dir="/etc/aria2/" && aria2c_cert_dir="cert/" && aria2c_conf_dir="conf/" && aria2c_data_dir="data" && aria2c_work_dir="work/" && event_poll="epoll" && file_allocation="falloc" && os_name="linux" && software_prefix="qb" && GenerateMasqueradeInfo && Generatearia2cOptions && Outputaria2cOptions
+    aria2c_dir="/etc/aria2/" && aria2c_cert_dir="cert/" && aria2c_conf_dir="conf/" && aria2c_data_dir="data" && aria2c_work_dir="work/" && event_poll="epoll" && file_allocation="falloc" && os_name="linux" && software_prefix="tr" && GenerateMasqueradeInfo && Generatearia2cOptions && Outputaria2cOptions
+    aria2c_dir="/etc/aria2/" && aria2c_cert_dir="cert/" && aria2c_conf_dir="conf/" && aria2c_data_dir="data" && aria2c_work_dir="work/" && event_poll="kqueue" && file_allocation="trunc" && os_name="macos" && software_prefix="a2" && GenerateMasqueradeInfo && Generatearia2cOptions && Outputaria2cOptions
+    aria2c_dir="/etc/aria2/" && aria2c_cert_dir="cert/" && aria2c_conf_dir="conf/" && aria2c_data_dir="data" && aria2c_work_dir="work/" && event_poll="kqueue" && file_allocation="trunc" && os_name="macos" && software_prefix="qb" && GenerateMasqueradeInfo && Generatearia2cOptions && Outputaria2cOptions
+    aria2c_dir="/etc/aria2/" && aria2c_cert_dir="cert/" && aria2c_conf_dir="conf/" && aria2c_data_dir="data" && aria2c_work_dir="work/" && event_poll="kqueue" && file_allocation="trunc" && os_name="macos" && software_prefix="tr" && GenerateMasqueradeInfo && Generatearia2cOptions && Outputaria2cOptions
+    aria2c_dir="C:\Program Files\\aria2\\" && aria2c_cert_dir="cert\\" && aria2c_conf_dir="conf\\" && aria2c_data_dir="data" && aria2c_work_dir="work\\" && event_poll="select" && file_allocation="falloc" && os_name="windows" && software_prefix="a2" && GenerateMasqueradeInfo && Generatearia2cOptions && Outputaria2cOptions
+    aria2c_dir="C:\Program Files\\aria2\\" && aria2c_cert_dir="cert\\" && aria2c_conf_dir="conf\\" && aria2c_data_dir="data" && aria2c_work_dir="work\\" && event_poll="select" && file_allocation="falloc" && os_name="windows" && software_prefix="qb" && GenerateMasqueradeInfo && Generatearia2cOptions && Outputaria2cOptions
+    aria2c_dir="C:\Program Files\\aria2\\" && aria2c_cert_dir="cert\\" && aria2c_conf_dir="conf\\" && aria2c_data_dir="data" && aria2c_work_dir="work\\" && event_poll="select" && file_allocation="falloc" && os_name="windows" && software_prefix="tr" && GenerateMasqueradeInfo && Generatearia2cOptions && Outputaria2cOptions
     exit 0
 }
 
