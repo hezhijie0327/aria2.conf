@@ -1,6 +1,6 @@
 #!/bin/bash
 
-# Current Version: 1.0.8
+# Current Version: 1.0.9
 
 ## How to get and use?
 # git clone "https://github.com/hezhijie0327/aria2.conf.git" && bash ./aria2.conf/release.sh
@@ -239,7 +239,7 @@ function GenerateMasqueradeInfo() {
     elif [ "${software_prefix}" == "de" ]; then
         ftp_passwd="DELUGEUSER@"
         peer_agent="Deluge/${DELUGE_VERSION} libtorrent/${LIBTORRENT_VERSION}"
-        peer_id_prefx="--DE$(echo "${DELUGE_VERSION}" | sed "s/\.//g")s--"
+        peer_id_prefx="-DE$(echo "${DELUGE_VERSION}" | sed "s/\.//g")s-"
     elif [ "${software_prefix}" == "tr" ]; then
         ftp_passwd="TRANSMISSIONUSER@"
         peer_agent="Transmission/${TRANSMISSION_VERSION}"
