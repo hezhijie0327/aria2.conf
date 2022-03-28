@@ -1,6 +1,6 @@
 #!/bin/bash
 
-# Current Version: 1.0.7
+# Current Version: 1.0.8
 
 ## How to get and use?
 # git clone "https://github.com/hezhijie0327/aria2.conf.git" && bash ./aria2.conf/release.sh
@@ -13,10 +13,11 @@ function GetTrackerslistData() {
 }
 # Get Masquerade Data
 function GetMasqueradeData() {
-    aria2_version=($(curl -s --connect-timeout 15 "https://api.github.com/repos/aria2/aria2/tags" | grep "\"name\"\:" | tr -cd "[:digit:].\n" | grep -E "^[0-9]{1}.[0-9]{2}.[0-9]{1}$" | sort -r | uniq | awk "{ print $2 }"))
-    curl_version=($(curl -s --connect-timeout 15 "https://api.github.com/repos/curl/curl/tags" | grep "\"name\"\:" | tr -cd "[:digit:]_\n" | grep -E "^[0-9]{1}_[0-9]{2}_[0-9]{1}$" | sort -r | uniq | awk "{ print $2 }"))
-    qBittorrent_version=($(curl -s --connect-timeout 15 "https://api.github.com/repos/qbittorrent/qBittorrent/tags" | grep "\"name\"\:" | tr -cd "[:digit:].\n" | grep -E "^[0-9]{1}.[0-9]{1}.[0-9]{1}$" | sort -r | uniq | awk "{ print $2 }"))
-    Transmission_version=($(curl -s --connect-timeout 15 "https://api.github.com/repos/transmission/transmission/tags" | grep "\"name\"\:" | tr -cd "[:digit:].\n" | grep -E "^[0-9]{1}.[0-9]{2}$" | sort -r | uniq | awk "{ print $2 }"))
+    ARIA2_VERSION=$(curl -s --connect-timeout 15 "https://api.github.com/repos/aria2/aria2/git/matching-refs/tags" | jq -Sr ".[].ref" | grep "^refs/tags/release\-" | tail -n 1 | sed "s/refs\/tags\/release\-//")
+    DELUGE_VERSION=$(curl -s --connect-timeout 15 "https://api.github.com/repos/deluge-torrent/deluge/git/matching-refs/tags" | jq -Sr ".[].ref" | grep -v "[a-z][0-9]$" | grep "^refs/tags/deluge\-" | tail -n 1 | sed "s/refs\/tags\/deluge\-//")
+    LIBTORRENT_VERSION=$(curl -s --connect-timeout 15 "https://api.github.com/repos/arvidn/libtorrent/git/matching-refs/tags" | jq -Sr ".[].ref" | grep "^refs/tags/v" | tail -n 1 | sed "s/refs\/tags\/v//")
+    QBITTORRENT_VERSION=$(curl -s --connect-timeout 15 "https://api.github.com/repos/qbittorrent/qbittorrent/git/matching-refs/tags" | jq -Sr ".[].ref" | grep "^refs/tags/release\-" | tail -n 1 | sed "s/refs\/tags\/release\-//")
+    TRANSMISSION_VERSION=$(curl -s --connect-timeout 15 "https://api.github.com/repos/transmission/transmission/git/matching-refs/tags" | jq -Sr ".[].ref" | grep -v "b[0-9]$" | grep "^refs/tags/[0-9]\." | tail -n 1 | sed "s/refs\/tags\///")
 }
 # Generate aria2c Options
 function Generatearia2cOptions() {
@@ -24,12 +25,12 @@ function Generatearia2cOptions() {
         "all-proxy-passwd="
         "all-proxy-user="
         "all-proxy="
-        "allow-overwrite=false"
+        "allow-overwrite=true"
         "allow-piece-length-change=true"
         "always-resume=true"
         "async-dns-server="
         "async-dns=true"
-        "auto-file-renaming=true"
+        "auto-file-renaming=false"
         "auto-save-interval=1"
         "bt-detach-seed-only=true"
         "bt-enable-hook-after-hash-check=true"
@@ -64,7 +65,7 @@ function Generatearia2cOptions() {
         "check-certificate=true"
         "check-integrity=true"
         "checksum="
-        "conditional-get=false"
+        "conditional-get=true"
         "conf-path=${aria2c_dir}${aria2c_conf_dir}aria2.conf"
         "connect-timeout=5"
         "console-log-level=info"
@@ -225,7 +226,7 @@ function Generatearia2cOptions() {
         "truncate-console-readout=true"
         "uri-selector=adaptive"
         "use-head=true"
-        "user-agent=${user_agent}"
+        "user-agent=aria2/${ARIA2_VERSION}"
         "version"
     )
 }
@@ -233,19 +234,20 @@ function Generatearia2cOptions() {
 function GenerateMasqueradeInfo() {
     if [ "${software_prefix}" == "qb" ]; then
         ftp_passwd="QBITTORRENTUSER@"
-        peer_agent="qBittorrent/${qBittorrent_version[0]}"
-        peer_id_prefx="-qB$(echo "${qBittorrent_version[0]}" | sed "s/\.//g")0-"
-        user_agent="curl/$(echo "${curl_version[0]}" | sed "s/\_/\./g")"
+        peer_agent="qBittorrent/${QBITTORRENT_VERSION}"
+        peer_id_prefx="-qB$(echo "${QBITTORRENT_VERSION}" | sed "s/\.//g")0-"
+    elif [ "${software_prefix}" == "de" ]; then
+        ftp_passwd="DELUGEUSER@"
+        peer_agent="Deluge/${DELUGE_VERSION} libtorrent/${LIBTORRENT_VERSION}"
+        peer_id_prefx="--DE$(echo "${DELUGE_VERSION}" | sed "s/\.//g")s--"
     elif [ "${software_prefix}" == "tr" ]; then
         ftp_passwd="TRANSMISSIONUSER@"
-        peer_agent="Transmission/${Transmission_version[0]}"
-        peer_id_prefx="-TR$(echo "${Transmission_version[0]}" | sed "s/\.//g")0-"
-        user_agent="curl/$(echo "${curl_version[0]}" | sed "s/\_/\./g")"
+        peer_agent="Transmission/${TRANSMISSION_VERSION}"
+        peer_id_prefx="-TR$(echo "${TRANSMISSION_VERSION}" | sed "s/\.//g")0-"
     else
         ftp_passwd="ARIA2USER@"
-        peer_agent="aria2/${aria2_version[0]}"
-        peer_id_prefx="A2-$(echo "${aria2_version[0]}" | sed "s/\./\-/g")-"
-        user_agent="curl/$(echo "${curl_version[0]}" | sed "s/\_/\./g")"
+        peer_agent="aria2/${ARIA2_VERSION}"
+        peer_id_prefx="A2-$(echo "${ARIA2_VERSION}" | sed "s/\./\-/g")-"
     fi
 }
 # Output aria2c Options
@@ -264,12 +266,15 @@ function Outputaria2cOptions() {
 function OutputData() {
     rm -rf ./aria2_*.conf
     aria2c_dir="/etc/aria2/" && aria2c_cert_dir="cert/" && aria2c_conf_dir="conf/" && aria2c_data_dir="data" && aria2c_work_dir="work/" && event_poll="epoll" && file_allocation="falloc" && os_name="linux" && software_prefix="a2" && GenerateMasqueradeInfo && Generatearia2cOptions && Outputaria2cOptions
+    aria2c_dir="/etc/aria2/" && aria2c_cert_dir="cert/" && aria2c_conf_dir="conf/" && aria2c_data_dir="data" && aria2c_work_dir="work/" && event_poll="epoll" && file_allocation="falloc" && os_name="linux" && software_prefix="de" && GenerateMasqueradeInfo && Generatearia2cOptions && Outputaria2cOptions
     aria2c_dir="/etc/aria2/" && aria2c_cert_dir="cert/" && aria2c_conf_dir="conf/" && aria2c_data_dir="data" && aria2c_work_dir="work/" && event_poll="epoll" && file_allocation="falloc" && os_name="linux" && software_prefix="qb" && GenerateMasqueradeInfo && Generatearia2cOptions && Outputaria2cOptions
     aria2c_dir="/etc/aria2/" && aria2c_cert_dir="cert/" && aria2c_conf_dir="conf/" && aria2c_data_dir="data" && aria2c_work_dir="work/" && event_poll="epoll" && file_allocation="falloc" && os_name="linux" && software_prefix="tr" && GenerateMasqueradeInfo && Generatearia2cOptions && Outputaria2cOptions
     aria2c_dir="/etc/aria2/" && aria2c_cert_dir="cert/" && aria2c_conf_dir="conf/" && aria2c_data_dir="data" && aria2c_work_dir="work/" && event_poll="kqueue" && file_allocation="trunc" && os_name="macos" && software_prefix="a2" && GenerateMasqueradeInfo && Generatearia2cOptions && Outputaria2cOptions
+    aria2c_dir="/etc/aria2/" && aria2c_cert_dir="cert/" && aria2c_conf_dir="conf/" && aria2c_data_dir="data" && aria2c_work_dir="work/" && event_poll="kqueue" && file_allocation="trunc" && os_name="macos" && software_prefix="de" && GenerateMasqueradeInfo && Generatearia2cOptions && Outputaria2cOptions
     aria2c_dir="/etc/aria2/" && aria2c_cert_dir="cert/" && aria2c_conf_dir="conf/" && aria2c_data_dir="data" && aria2c_work_dir="work/" && event_poll="kqueue" && file_allocation="trunc" && os_name="macos" && software_prefix="qb" && GenerateMasqueradeInfo && Generatearia2cOptions && Outputaria2cOptions
     aria2c_dir="/etc/aria2/" && aria2c_cert_dir="cert/" && aria2c_conf_dir="conf/" && aria2c_data_dir="data" && aria2c_work_dir="work/" && event_poll="kqueue" && file_allocation="trunc" && os_name="macos" && software_prefix="tr" && GenerateMasqueradeInfo && Generatearia2cOptions && Outputaria2cOptions
     aria2c_dir="C:\Program Files\\aria2\\" && aria2c_cert_dir="cert\\" && aria2c_conf_dir="conf\\" && aria2c_data_dir="data" && aria2c_work_dir="work\\" && event_poll="select" && file_allocation="falloc" && os_name="windows" && software_prefix="a2" && GenerateMasqueradeInfo && Generatearia2cOptions && Outputaria2cOptions
+    aria2c_dir="C:\Program Files\\aria2\\" && aria2c_cert_dir="cert\\" && aria2c_conf_dir="conf\\" && aria2c_data_dir="data" && aria2c_work_dir="work\\" && event_poll="select" && file_allocation="falloc" && os_name="windows" && software_prefix="de" && GenerateMasqueradeInfo && Generatearia2cOptions && Outputaria2cOptions
     aria2c_dir="C:\Program Files\\aria2\\" && aria2c_cert_dir="cert\\" && aria2c_conf_dir="conf\\" && aria2c_data_dir="data" && aria2c_work_dir="work\\" && event_poll="select" && file_allocation="falloc" && os_name="windows" && software_prefix="qb" && GenerateMasqueradeInfo && Generatearia2cOptions && Outputaria2cOptions
     aria2c_dir="C:\Program Files\\aria2\\" && aria2c_cert_dir="cert\\" && aria2c_conf_dir="conf\\" && aria2c_data_dir="data" && aria2c_work_dir="work\\" && event_poll="select" && file_allocation="falloc" && os_name="windows" && software_prefix="tr" && GenerateMasqueradeInfo && Generatearia2cOptions && Outputaria2cOptions
     exit 0
