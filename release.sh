@@ -1,6 +1,6 @@
 #!/bin/bash
 
-# Current Version: 1.0.9
+# Current Version: 1.1.0
 
 ## How to get and use?
 # git clone "https://github.com/hezhijie0327/aria2.conf.git" && bash ./aria2.conf/release.sh
@@ -101,7 +101,7 @@ function Generatearia2cOptions() {
         "follow-torrent=mem"
         "force-save=true"
         "force-sequential=true"
-        "ftp-passwd=${ftp_passwd}"
+        "ftp-passwd=ARIA2USER@"
         "ftp-pasv=true"
         "ftp-proxy-passwd="
         "ftp-proxy-user="
@@ -233,19 +233,15 @@ function Generatearia2cOptions() {
 # Generate Masquerade Info
 function GenerateMasqueradeInfo() {
     if [ "${software_prefix}" == "qb" ]; then
-        ftp_passwd="QBITTORRENTUSER@"
         peer_agent="qBittorrent/${QBITTORRENT_VERSION}"
         peer_id_prefx="-qB$(echo "${QBITTORRENT_VERSION}" | sed "s/\.//g")0-"
     elif [ "${software_prefix}" == "de" ]; then
-        ftp_passwd="DELUGEUSER@"
         peer_agent="Deluge/${DELUGE_VERSION} libtorrent/${LIBTORRENT_VERSION}"
         peer_id_prefx="-DE$(echo "${DELUGE_VERSION}" | sed "s/\.//g")s-"
     elif [ "${software_prefix}" == "tr" ]; then
-        ftp_passwd="TRANSMISSIONUSER@"
         peer_agent="Transmission/${TRANSMISSION_VERSION}"
         peer_id_prefx="-TR$(echo "${TRANSMISSION_VERSION}" | sed "s/\.//g")0-"
     else
-        ftp_passwd="ARIA2USER@"
         peer_agent="aria2/${ARIA2_VERSION}"
         peer_id_prefx="A2-$(echo "${ARIA2_VERSION}" | sed "s/\./\-/g")-"
     fi
