@@ -1,6 +1,6 @@
 #!/bin/bash
 
-# Current Version: 1.0.9
+# Current Version: 1.1.0
 
 ## How to get and use?
 # git clone "https://github.com/hezhijie0327/aria2.conf.git" && bash ./aria2.conf/aria2.sh -c https://alidns.com -e 86400 -m a2 -s true -u true
@@ -89,7 +89,7 @@ function CheckEnvironment() {
     fi
     if [ ! -f "/etc/aria2/work/aria2.netrc" ]; then
         touch "/etc/aria2/work/aria2.netrc"
-    fi
+    fi && chmod 600 "/etc/aria2/work/aria2.netrc"
     if [ ! -f "/etc/aria2/work/aria2.session" ]; then
         touch "/etc/aria2/work/aria2.session"
     fi
