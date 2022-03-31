@@ -1,6 +1,6 @@
 #!/bin/bash
 
-# Current Version: 1.1.1
+# Current Version: 1.1.2
 
 ## How to get and use?
 # git clone "https://github.com/hezhijie0327/aria2.conf.git" && bash ./aria2.conf/release.sh
@@ -73,8 +73,14 @@ function Generatearia2cOptions() {
         "continue=true"
         "daemon=false"
         "deferred-input=false"
+        "dht-entry-point6=dht.libtorrent.org:25401"
         "dht-entry-point6=dht.transmissionbt.com:6881"
+        "dht-entry-point6=router.bittorrent.com:6881"
+        "dht-entry-point6=router.utorrent.com:6881"
+        "dht-entry-point=dht.libtorrent.org:25401"
         "dht-entry-point=dht.transmissionbt.com:6881"
+        "dht-entry-point=router.bittorrent.com:6881"
+        "dht-entry-point=router.utorrent.com:6881"
         "dht-file-path6=${aria2c_dir}${aria2c_work_dir}aria2.dht6"
         "dht-file-path=${aria2c_dir}${aria2c_work_dir}aria2.dht"
         "dht-listen-addr6="
