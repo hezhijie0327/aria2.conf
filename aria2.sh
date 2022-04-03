@@ -1,6 +1,6 @@
 #!/bin/bash
 
-# Current Version: 1.1.0
+# Current Version: 1.1.1
 
 ## How to get and use?
 # git clone "https://github.com/hezhijie0327/aria2.conf.git" && bash ./aria2.conf/aria2.sh -c https://alidns.com -e 86400 -m a2 -s true -u true
@@ -150,7 +150,6 @@ function Getaria2cFunction() {
     }
     aria2c_function=$(aria2c --help="#all")
     aria2c_bt_piece_selector=$(echo "${aria2c_function}" | grep "\-\-bt\-piece\-selector")
-    aria2c_http_want_digest=$(echo "${aria2c_function}" | grep "\-\-http\-want\-digest")
     aria2c_retry_on_400=$(echo "${aria2c_function}" | grep "\-\-retry\-on\-400")
     aria2c_retry_on_403=$(echo "${aria2c_function}" | grep "\-\-retry\-on\-403")
     aria2c_retry_on_406=$(echo "${aria2c_function}" | grep "\-\-retry\-on\-406")
@@ -158,9 +157,6 @@ function Getaria2cFunction() {
     Getaria2cMemory && Getaria2cNetwork && Getaria2cThread && aria2c_extra_option="${aria2c_disk_cache_option}${aria2c_ipv6_option}${aria2c_thread_option}"
     if [ "${aria2c_bt_piece_selector}" != "" ]; then
         aria2c_extra_option="${aria2c_extra_option}s/\#bt\-piece\-selector\=/bt\-piece\-selector\=inorder/g;"
-    fi
-    if [ "${aria2c_http_want_digest}" != "" ]; then
-        aria2c_extra_option="${aria2c_extra_option}s/\#http\-want\-digest\=/http\-want\-digest\=false/g;"
     fi
     if [ "${aria2c_retry_on_400}" != "" ]; then
         aria2c_extra_option="${aria2c_extra_option}s/\#retry\-on\-400\=/retry\-on\-400\=true/g;"
