@@ -1,6 +1,6 @@
 #!/bin/bash
 
-# Current Version: 1.1.2
+# Current Version: 1.1.3
 
 ## How to get and use?
 # git clone "https://github.com/hezhijie0327/aria2.conf.git" && bash ./aria2.conf/release.sh
@@ -127,7 +127,6 @@ function Generatearia2cOptions() {
         "http-proxy-user="
         "http-proxy="
         "http-user="
-        "http-want-digest="
         "https-proxy-passwd="
         "https-proxy-user="
         "https-proxy="
@@ -168,6 +167,7 @@ function Generatearia2cOptions() {
         "no-file-allocation-limit=4K"
         "no-netrc=false"
         "no-proxy="
+        "no-want-digest-header=true"
         "on-bt-download-complete="
         "on-download-complete="
         "on-download-error="
