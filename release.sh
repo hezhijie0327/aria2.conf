@@ -1,6 +1,6 @@
 #!/bin/bash
 
-# Current Version: 1.1.3
+# Current Version: 1.1.4
 
 ## How to get and use?
 # git clone "https://github.com/hezhijie0327/aria2.conf.git" && bash ./aria2.conf/release.sh
@@ -92,7 +92,7 @@ function Generatearia2cOptions() {
         "download-result=full"
         "dry-run=false"
         "dscp=32"
-        "enable-async-dns6=true"
+        "enable-async-dns6="
         "enable-color=true"
         "enable-dht6=true"
         "enable-dht=true"
