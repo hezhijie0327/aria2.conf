@@ -1,6 +1,6 @@
 #!/bin/bash
 
-# Current Version: 1.1.8
+# Current Version: 1.1.9
 
 ## How to get and use?
 # git clone "https://github.com/hezhijie0327/aria2.conf.git" && bash ./aria2.conf/release.sh
@@ -222,7 +222,7 @@ function Generatearia2cOptions() {
         "socket-recv-buffer-size=4M"
         "split=16"
         "ssh-host-key-md="
-        "stderr=true"
+        "stderr=false"
         "stop-with-process="
         "stop=0"
         "stream-piece-selector=inorder"
