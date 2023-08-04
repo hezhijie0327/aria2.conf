@@ -1,6 +1,6 @@
 #!/bin/bash
 
-# Current Version: 1.1.5
+# Current Version: 1.1.6
 
 ## How to get and use?
 # git clone "https://github.com/hezhijie0327/aria2.conf.git" && bash ./aria2.conf/release.sh
@@ -84,7 +84,7 @@ function Generatearia2cOptions() {
         "dht-file-path6=${aria2c_dir}${aria2c_work_dir}aria2.dht6"
         "dht-file-path=${aria2c_dir}${aria2c_work_dir}aria2.dht"
         "dht-listen-addr6="
-        "dht-listen-port=51413,6881-6889,6969"
+        "dht-listen-port=6881-6889"
         "dht-message-timeout=5"
         "dir=${aria2c_dir}${aria2c_data_dir}"
         "disable-ipv6=false"
@@ -135,7 +135,7 @@ function Generatearia2cOptions() {
         "input-file=${aria2c_dir}${aria2c_work_dir}aria2.session"
         "interface="
         "keep-unfinished-download-result=true"
-        "listen-port=51413,6881-6889,6969"
+        "listen-port=6881-6889"
         "load-cookies=${aria2c_dir}${aria2c_work_dir}aria2.cookie"
         "log-level=error"
         "log=${aria2c_dir}${aria2c_work_dir}aria2.log"
