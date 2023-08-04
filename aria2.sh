@@ -15,21 +15,21 @@ ARIA2_LISTEN_PORT="" # 6881-6999
 
 ARIA2_BT_PIECE_SELECTOR="" # inorder, random
 
-ARIA2_DISABLE_IPV6="" # false, true
+ARIA2_DISABLE_IPV6="false" # false, true
 
 ARIA2_DISK_CACHE="" # 0, 16M
 
 ARIA2_MAX_CONNECTION_PER_SERVER="" # 16
 ARIA2_SPLIT="" # 16
 
-ARIA2_RETRY_ON_400="" # false, true
-ARIA2_RETRY_ON_403="" # false, true
-ARIA2_RETRY_ON_406="" # false, true
-ARIA2_RETRY_ON_UNKNOWN="" # false, true
+ARIA2_RETRY_ON_400="false" # false, true
+ARIA2_RETRY_ON_403="false" # false, true
+ARIA2_RETRY_ON_406="false" # false, true
+ARIA2_RETRY_ON_UNKNOWN="false" # false, true
 
 ARIA2_RPC_PORT="" # 6800
 ARIA2_RPC_SECRET=""
-ARIA2_RPC_SECURE="" # false, true
+ARIA2_RPC_SECURE="false" # false, true
 
 SSL_CERT="fullchain.cer"
 SSL_KEY="zhijie.online.key"
