@@ -52,40 +52,40 @@ function DownloadConfiguration() {
     fi
 
     if [ "${DOWNLOAD_CONFIG:-a2}" != "false" ]; then
-        curl ${CURL_OPTION:--4 -s --connect-timeout 15} "https://${CDN_PATH}/aria2.conf/main/aria2_${DOWNLOAD_CONFIG:-a2}_linux.conf" > "${DOCKER_PATH}/conf/aria2.conf"
-    fi
+        curl ${CURL_OPTION:--4 -s --connect-timeout 15} "https://${CDN_PATH}/aria2.conf/main/aria2_${DOWNLOAD_CONFIG:-a2}_linux.conf" | sed "s/fullchain\.cer/${SSL_CERT/./\\.}/g;s/zhijie\.online\.key/${SSL_KEY/./\\.}/g" > "${DOCKER_PATH}/conf/aria2.conf"
 
-    if [ "${ARIA2_BT_PIECE_SELECTOR}" != "" ]; then
-        sed -i "s/\#bt\-piece\-selector\=/bt\-piece\-selector\=${ARIA2_BT_PIECE_SELECTOR}/g" "${DOCKER_PATH}/conf/aria2.conf"
-    fi
+        if [ "${ARIA2_BT_PIECE_SELECTOR}" != "" ]; then
+            sed -i "s/\#bt\-piece\-selector\=/bt\-piece\-selector\=${ARIA2_BT_PIECE_SELECTOR}/g" "${DOCKER_PATH}/conf/aria2.conf"
+        fi
 
-    if [ "${ARIA2_DISABLE_IPV6}" != "false" ]; then
-        sed -i "s/dht\-entry\-point6\=/\#dht\-entry\-point6\=/g;s/dht\-file\-path6\=/\#dht\-file\-path6\=/g;s/disable\-ipv6\=false/disable\-ipv6\=true/g;s/enable\-async\-dns6\=true/enable\-async\-dns6\=false/g;s/enable\-dht6\=true/enable\-dht6\=false/g" "${DOCKER_PATH}/conf/aria2.conf"
-    fi
+        if [ "${ARIA2_DISABLE_IPV6}" != "false" ]; then
+            sed -i "s/dht\-entry\-point6\=/\#dht\-entry\-point6\=/g;s/dht\-file\-path6\=/\#dht\-file\-path6\=/g;s/disable\-ipv6\=false/disable\-ipv6\=true/g;s/enable\-async\-dns6\=true/enable\-async\-dns6\=false/g;s/enable\-dht6\=true/enable\-dht6\=false/g" "${DOCKER_PATH}/conf/aria2.conf"
+        fi
 
-    if [ "${ARIA2_DISK_CACHE}" != "" ]; then
-        sed -i "s/disk\-cache\=0/disk\-cache\=${ARIA2_DISK_CACHE}/g" "${DOCKER_PATH}/conf/aria2.conf"
-    fi
+        if [ "${ARIA2_DISK_CACHE}" != "" ]; then
+            sed -i "s/disk\-cache\=0/disk\-cache\=${ARIA2_DISK_CACHE}/g" "${DOCKER_PATH}/conf/aria2.conf"
+        fi
 
-    if [ "${ARIA2_MAX_CONNECTION_PER_SERVER}" != "16" ]; then
-        sed -i "s/max\-connection\-per\-server\=16/max\-connection\-per\-server\=${ARIA2_MAX_CONNECTION_PER_SERVER}/g" "${DOCKER_PATH}/conf/aria2.conf"
-    fi
+        if [ "${ARIA2_MAX_CONNECTION_PER_SERVER}" != "16" ]; then
+            sed -i "s/max\-connection\-per\-server\=16/max\-connection\-per\-server\=${ARIA2_MAX_CONNECTION_PER_SERVER}/g" "${DOCKER_PATH}/conf/aria2.conf"
+        fi
 
-    if [ "${ARIA2_RETRY_ON_400}" != "false" ]; then
-        sed -i "s/\#retry\-on\-400\=/retry\-on\-400\=true/g" "${DOCKER_PATH}/conf/aria2.conf"
-    fi
-    if [ "${ARIA2_RETRY_ON_403}" != "false" ]; then
-        sed -i "s/\#retry\-on\-403\=/retry\-on\-403\=true/g" "${DOCKER_PATH}/conf/aria2.conf"
-    fi
-    if [ "${ARIA2_RETRY_ON_406}" != "false" ]; then
-        sed -i "s/\#retry\-on\-406\=/retry\-on\-406\=true/g" "${DOCKER_PATH}/conf/aria2.conf"
-    fi
-    if [ "${ARIA2_RETRY_ON_UNKNOWN}" != "false" ]; then
-        sed -i "s/\#retry\-on\-unknown\=/retry\-on\-unknown\=true/g" "${DOCKER_PATH}/conf/aria2.conf"
-    fi
+        if [ "${ARIA2_RETRY_ON_400}" != "false" ]; then
+            sed -i "s/\#retry\-on\-400\=/retry\-on\-400\=true/g" "${DOCKER_PATH}/conf/aria2.conf"
+        fi
+        if [ "${ARIA2_RETRY_ON_403}" != "false" ]; then
+            sed -i "s/\#retry\-on\-403\=/retry\-on\-403\=true/g" "${DOCKER_PATH}/conf/aria2.conf"
+        fi
+        if [ "${ARIA2_RETRY_ON_406}" != "false" ]; then
+            sed -i "s/\#retry\-on\-406\=/retry\-on\-406\=true/g" "${DOCKER_PATH}/conf/aria2.conf"
+        fi
+        if [ "${ARIA2_RETRY_ON_UNKNOWN}" != "false" ]; then
+            sed -i "s/\#retry\-on\-unknown\=/retry\-on\-unknown\=true/g" "${DOCKER_PATH}/conf/aria2.conf"
+        fi
 
-    if [ "${ARIA2_SPLIT}" != "16" ]; then
-        sed -i "s/split\=16/split\=${ARIA2_SPLIT}/g" "${DOCKER_PATH}/conf/aria2.conf"
+        if [ "${ARIA2_SPLIT}" != "16" ]; then
+            sed -i "s/split\=16/split\=${ARIA2_SPLIT}/g" "${DOCKER_PATH}/conf/aria2.conf"
+        fi
     fi
 
     if [ ! -d "${DOCKER_PATH}/work" ]; then
@@ -112,7 +112,6 @@ function DownloadConfiguration() {
     if [ ! -f "${DOCKER_PATH}/work/aria2.stat" ]; then
         touch "${DOCKER_PATH}/work/aria2.stat"
     fi
-
 }
 # Create New Container
 function CreateNewContainer() {
