@@ -1,6 +1,6 @@
 #!/bin/bash
 
-# Current Version: 1.1.7
+# Current Version: 1.1.8
 
 ## How to get and use?
 # git clone "https://github.com/hezhijie0327/aria2.conf.git" && bash ./aria2.conf/release.sh
@@ -68,7 +68,7 @@ function Generatearia2cOptions() {
         "conditional-get=true"
         "conf-path=${aria2c_dir}${aria2c_conf_dir}aria2.conf"
         "connect-timeout=5"
-        "console-log-level=error"
+        "console-log-level=notice"
         "content-disposition-default-utf8=true"
         "continue=true"
         "daemon=false"
