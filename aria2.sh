@@ -61,10 +61,10 @@ function DownloadConfiguration() {
         curl ${CURL_OPTION:--4 -s --connect-timeout 15} "https://${CDN_PATH}/aria2.conf/main/aria2_${DOWNLOAD_CONFIG:-a2}_linux.conf" | sed "s/fullchain\.cer/${SSL_CERT/./\\.}/g;s/zhijie\.online\.key/${SSL_KEY/./\\.}/g" > "${DOCKER_PATH}/conf/aria2.conf"
 
         if [ "${ARIA2_DHT_LISTEN_PORT}" != "" ]; then
-            sed -i "s/dht\-listen\-port\=6881\-6999/dht\-listen\-port\=${ARIA2_DHT_LISTEN_PORT}/g" "${DOCKER_PATH}/conf/aria2.conf"
+            sed -i "s/dht\-listen\-port\=6881\-6889/dht\-listen\-port\=${ARIA2_DHT_LISTEN_PORT}/g" "${DOCKER_PATH}/conf/aria2.conf"
         fi
         if [ "${ARIA2_LISTEN_PORT}" != "" ]; then
-            sed -i "s/listen\-port\=6881\-6999/listen\-port\=${ARIA2_LISTEN_PORT}/g" "${DOCKER_PATH}/conf/aria2.conf"
+            sed -i "s/listen\-port\=6881\-6889/listen\-port\=${ARIA2_LISTEN_PORT}/g" "${DOCKER_PATH}/conf/aria2.conf"
         fi
 
         if [ "${ARIA2_BT_PIECE_SELECTOR}" != "" ]; then
