@@ -23,6 +23,10 @@ ARIA2_RETRY_ON_403="" # false, true
 ARIA2_RETRY_ON_406="" # false, true
 ARIA2_RETRY_ON_UNKNOWN="" # false, true
 
+ARIA2_RPC_SECRET=""
+
+ARIA2_RPC_SECURE="" # false, true
+
 ARIA2_SPLIT="" # 16
 
 SSL_CERT="fullchain.cer"
@@ -81,6 +85,14 @@ function DownloadConfiguration() {
         fi
         if [ "${ARIA2_RETRY_ON_UNKNOWN}" != "false" ]; then
             sed -i "s/\#retry\-on\-unknown\=/retry\-on\-unknown\=true/g" "${DOCKER_PATH}/conf/aria2.conf"
+        fi
+
+        if [ "${ARIA2_RPC_SECRET}" != "" ]; then
+            sed -i "s/rpc\-secret\=/rpc\-secret\=${ARIA2_RPC_SECRET}/g" "${DOCKER_PATH}/conf/aria2.conf"
+        fi
+
+        if [ "${ARIA2_RPC_SECURE}" != "false" ]; then
+            sed -i "s/rpc\-secure\=false/rpc\-secure\=true/g" "${DOCKER_PATH}/conf/aria2.conf"
         fi
 
         if [ "${ARIA2_SPLIT}" != "16" ]; then
