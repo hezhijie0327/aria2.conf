@@ -72,7 +72,7 @@ function DownloadConfiguration() {
         fi
 
         if [ "${ARIA2_DISABLE_IPV6}" != "false" ]; then
-            sed -i "s/dht\-entry\-point6\=/\#dht\-entry\-point6\=/g;s/disable\-ipv6\=false/disable\-ipv6\=true/g;s/enable\-dht6\=true/enable\-dht6\=false/g" "${DOCKER_PATH}/conf/aria2.conf"
+            sed -i "s/dht\-entry\-point6\=/\#dht\-entry\-point6\=/g;s/disable\-ipv6\=false/disable\-ipv6\=true/g;s/enable\-async\-dns6\=true/enable\-async\-dns6\=false/g;s/enable\-dht6\=true/enable\-dht6\=false/g" "${DOCKER_PATH}/conf/aria2.conf"
         fi
 
         if [ "${ARIA2_DISK_CACHE}" != "" ]; then
