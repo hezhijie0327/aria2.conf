@@ -72,7 +72,7 @@ function DownloadConfiguration() {
         fi
 
         if [ "${ARIA2_DISABLE_IPV6}" != "false" ]; then
-            sed -i "s/dht\-entry\-point6\=/\#dht\-entry\-point6\=/g;s/dht\-file\-path6\=/\#dht\-file\-path6\=/g;s/disable\-ipv6\=false/disable\-ipv6\=true/g;s/enable\-async\-dns6\=true/enable\-async\-dns6\=false/g;s/enable\-dht6\=true/enable\-dht6\=false/g" "${DOCKER_PATH}/conf/aria2.conf"
+            sed -i "s/dht\-entry\-point6\=/\#dht\-entry\-point6\=/g;s/disable\-ipv6\=false/disable\-ipv6\=true/g;s/enable\-dht6\=true/enable\-dht6\=false/g" "${DOCKER_PATH}/conf/aria2.conf"
         fi
 
         if [ "${ARIA2_DISK_CACHE}" != "" ]; then
@@ -107,6 +107,10 @@ function DownloadConfiguration() {
         fi
         if [ "${ARIA2_RPC_SECURE}" != "false" ]; then
             sed -i "s/#rpc-certificate/rpc-certificate/g;s/#rpc-private-key/rpc-private-key/g;s/rpc\-secure\=false/rpc\-secure\=true/g" "${DOCKER_PATH}/conf/aria2.conf"
+        fi
+
+        if [ -f "${DOCKER_PATH}/conf/aria2.conf" ]; then
+            sed -i "/#/d" "${DOCKER_PATH}/conf/aria2.conf"
         fi
     fi
 
