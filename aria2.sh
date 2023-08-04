@@ -88,11 +88,11 @@ function DownloadConfiguration() {
         fi
 
         if [ "${ARIA2_RPC_SECRET}" != "" ]; then
-            sed -i "s/rpc\-secret\=/rpc\-secret\=${ARIA2_RPC_SECRET}/g" "${DOCKER_PATH}/conf/aria2.conf"
+            sed -i "s/#rpc\-secret\=/rpc\-secret\=${ARIA2_RPC_SECRET}/g" "${DOCKER_PATH}/conf/aria2.conf"
         fi
 
-        if [ "${ARIA2_RPC_SECURE}" != "true" ]; then
-            sed -i "s/rpc\-secure\=true/rpc\-secure\=false/g" "${DOCKER_PATH}/conf/aria2.conf"
+        if [ "${ARIA2_RPC_SECURE}" != "false" ]; then
+            sed -i "s/#rpc-certificate/rpc-certificate/g;s/#rpc-private-key/rpc-private-key/g;s/rpc\-secure\=false/rpc\-secure\=true/g" "${DOCKER_PATH}/conf/aria2.conf"
         fi
 
         if [ "${ARIA2_SPLIT}" != "" ]; then
