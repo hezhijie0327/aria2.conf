@@ -70,7 +70,7 @@ function DownloadConfiguration() {
             sed -i "s/disk\-cache\=0/disk\-cache\=${ARIA2_DISK_CACHE}/g" "${DOCKER_PATH}/conf/aria2.conf"
         fi
 
-        if [ "${ARIA2_MAX_CONNECTION_PER_SERVER}" != "16" ]; then
+        if [ "${ARIA2_MAX_CONNECTION_PER_SERVER}" != "" ]; then
             sed -i "s/max\-connection\-per\-server\=16/max\-connection\-per\-server\=${ARIA2_MAX_CONNECTION_PER_SERVER}/g" "${DOCKER_PATH}/conf/aria2.conf"
         fi
 
@@ -91,11 +91,11 @@ function DownloadConfiguration() {
             sed -i "s/rpc\-secret\=/rpc\-secret\=${ARIA2_RPC_SECRET}/g" "${DOCKER_PATH}/conf/aria2.conf"
         fi
 
-        if [ "${ARIA2_RPC_SECURE}" != "false" ]; then
-            sed -i "s/rpc\-secure\=false/rpc\-secure\=true/g" "${DOCKER_PATH}/conf/aria2.conf"
+        if [ "${ARIA2_RPC_SECURE}" != "true" ]; then
+            sed -i "s/rpc\-secure\=true/rpc\-secure\=false/g" "${DOCKER_PATH}/conf/aria2.conf"
         fi
 
-        if [ "${ARIA2_SPLIT}" != "16" ]; then
+        if [ "${ARIA2_SPLIT}" != "" ]; then
             sed -i "s/split\=16/split\=${ARIA2_SPLIT}/g" "${DOCKER_PATH}/conf/aria2.conf"
         fi
     fi
@@ -128,12 +128,12 @@ function DownloadConfiguration() {
 # Create New Container
 function CreateNewContainer() {
     docker run --name ${REPO} --net host --restart=always \
-        -v /docker/ssl:${DOCKER_PATH}/cert:ro \
-        -v ${DOCKER_PATH}/conf:${DOCKER_PATH}/conf \
-        -v ${DOCKER_PATH}/data:${DOCKER_PATH}/data \
-        -v ${DOCKER_PATH}/work:${DOCKER_PATH}/work \
+        -v /docker/ssl:/etc/aria2/cert:ro \
+        -v ${DOCKER_PATH}/conf:/etc/aria2/conf \
+        -v ${DOCKER_PATH}/data:/etc/aria2/data \
+        -v ${DOCKER_PATH}/work:/etc/aria2/work \
         -d ${OWNER}/${REPO}:${TAG} \
-        --conf-path="${DOCKER_PATH}/conf/aria2.conf"
+        --conf-path="/etc/aria2/conf/aria2.conf"
 }
 # Cleanup Expired Image
 function CleanupExpiredImage() {
