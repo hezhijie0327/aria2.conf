@@ -10,6 +10,9 @@ CURL_OPTION=""
 DOWNLOAD_CONFIG="" # false, a2, tr, qb
 USE_CDN="true"
 
+ARIA2_DHT_LISTEN_PORT="" # 6881-6999
+ARIA2_LISTEN_PORT="" # 6881-6999
+
 ARIA2_BT_PIECE_SELECTOR="" # inorder, random
 
 ARIA2_DISABLE_IPV6="" # false, true
@@ -17,17 +20,16 @@ ARIA2_DISABLE_IPV6="" # false, true
 ARIA2_DISK_CACHE="" # 0, 16M
 
 ARIA2_MAX_CONNECTION_PER_SERVER="" # 16
+ARIA2_SPLIT="" # 16
 
 ARIA2_RETRY_ON_400="" # false, true
 ARIA2_RETRY_ON_403="" # false, true
 ARIA2_RETRY_ON_406="" # false, true
 ARIA2_RETRY_ON_UNKNOWN="" # false, true
 
+ARIA2_RPC_PORT="" # 6800
 ARIA2_RPC_SECRET=""
-
 ARIA2_RPC_SECURE="" # false, true
-
-ARIA2_SPLIT="" # 16
 
 SSL_CERT="fullchain.cer"
 SSL_KEY="zhijie.online.key"
@@ -58,6 +60,13 @@ function DownloadConfiguration() {
     if [ "${DOWNLOAD_CONFIG:-a2}" != "false" ]; then
         curl ${CURL_OPTION:--4 -s --connect-timeout 15} "https://${CDN_PATH}/aria2.conf/main/aria2_${DOWNLOAD_CONFIG:-a2}_linux.conf" | sed "s/fullchain\.cer/${SSL_CERT/./\\.}/g;s/zhijie\.online\.key/${SSL_KEY/./\\.}/g" > "${DOCKER_PATH}/conf/aria2.conf"
 
+        if [ "${ARIA2_DHT_LISTEN_PORT}" != "" ]; then
+            sed -i "s/dht\-listen\-port\=6881\-6999/dht\-listen\-port\=${ARIA2_DHT_LISTEN_PORT}/g" "${DOCKER_PATH}/conf/aria2.conf"
+        fi
+        if [ "${ARIA2_LISTEN_PORT}" != "" ]; then
+            sed -i "s/listen\-port\=6881\-6999/listen\-port\=${ARIA2_LISTEN_PORT}/g" "${DOCKER_PATH}/conf/aria2.conf"
+        fi
+
         if [ "${ARIA2_BT_PIECE_SELECTOR}" != "" ]; then
             sed -i "s/\#bt\-piece\-selector\=/bt\-piece\-selector\=${ARIA2_BT_PIECE_SELECTOR}/g" "${DOCKER_PATH}/conf/aria2.conf"
         fi
@@ -73,6 +82,9 @@ function DownloadConfiguration() {
         if [ "${ARIA2_MAX_CONNECTION_PER_SERVER}" != "" ]; then
             sed -i "s/max\-connection\-per\-server\=16/max\-connection\-per\-server\=${ARIA2_MAX_CONNECTION_PER_SERVER}/g" "${DOCKER_PATH}/conf/aria2.conf"
         fi
+        if [ "${ARIA2_SPLIT}" != "" ]; then
+            sed -i "s/split\=16/split\=${ARIA2_SPLIT}/g" "${DOCKER_PATH}/conf/aria2.conf"
+        fi
 
         if [ "${ARIA2_RETRY_ON_400}" != "false" ]; then
             sed -i "s/\#retry\-on\-400\=/retry\-on\-400\=true/g" "${DOCKER_PATH}/conf/aria2.conf"
@@ -87,16 +99,14 @@ function DownloadConfiguration() {
             sed -i "s/\#retry\-on\-unknown\=/retry\-on\-unknown\=true/g" "${DOCKER_PATH}/conf/aria2.conf"
         fi
 
+        if [ "${ARIA2_RPC_PORT}" != "" ]; then
+            sed -i "s/rpc\-listen\-port\=6800/rpc\-listen\-port\=${ARIA2_RPC_PORT}/g" "${DOCKER_PATH}/conf/aria2.conf"
+        fi
         if [ "${ARIA2_RPC_SECRET}" != "" ]; then
             sed -i "s/#rpc\-secret\=/rpc\-secret\=${ARIA2_RPC_SECRET}/g" "${DOCKER_PATH}/conf/aria2.conf"
         fi
-
         if [ "${ARIA2_RPC_SECURE}" != "false" ]; then
             sed -i "s/#rpc-certificate/rpc-certificate/g;s/#rpc-private-key/rpc-private-key/g;s/rpc\-secure\=false/rpc\-secure\=true/g" "${DOCKER_PATH}/conf/aria2.conf"
-        fi
-
-        if [ "${ARIA2_SPLIT}" != "" ]; then
-            sed -i "s/split\=16/split\=${ARIA2_SPLIT}/g" "${DOCKER_PATH}/conf/aria2.conf"
         fi
     fi
 
