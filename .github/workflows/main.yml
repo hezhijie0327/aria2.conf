@@ -13,10 +13,10 @@ jobs:
         runs-on: ubuntu-latest
         steps:
             - name: Step 1 - Checkout
-              uses: actions/checkout@v4
+              uses: actions/checkout@v7
             - name: Step 2 - Build aria2.conf
               run: |
-                  curl -s "https://raw.githubusercontent.com/hezhijie0327/aria2.conf/source/release.sh" | sudo bash
+                  python3 build.py
             - name: Step 3 - Release aria2.conf
               run: |
                   curl -s "https://raw.githubusercontent.com/hezhijie0327/Toolkit/main/Git.sh" > "/tmp/Git.sh"
