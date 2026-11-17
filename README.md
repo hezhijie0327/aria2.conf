@@ -20,10 +20,10 @@
 
 ```bash
 # Linux + qBittorrent 伪装档
-curl -O https://raw.githubusercontent.com/hezhijie0327/aria2.conf/main/aria2_qb_linux.conf
+curl -O https://raw.githubusercontent.com/hezhijie0327/aria2.conf/main/dist/qb/linux.conf
 ```
 
-文件命名：`aria2_<配置档>_<平台>.conf`，配置档 ∈ {a2, de, qb, tr}，平台 ∈ {linux, macos, windows}。
+文件路径：`dist/<配置档>/<平台>.conf`，配置档 ∈ {a2, de, qb, tr}，平台 ∈ {linux, macos, windows}。
 
 ### 方式二：本地构建
 

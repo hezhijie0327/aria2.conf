@@ -107,7 +107,7 @@ Family-wide Markdown rules, shared verbatim across all ZJ projects:
 
 ## Project
 
-aria2.conf builds 12 aria2 configuration files (4 client profiles x 3 operating systems) with up-to-date tracker lists and peer-id masquerading. `aria2.sh` is a separate Docker installer that downloads a generated config and runs aria2.
+aria2.conf builds 12 aria2 configuration files (4 client profiles x 3 operating systems) under `dist/<profile>/<os>.conf` with up-to-date tracker lists and peer-id masquerading. `aria2.sh` is a separate Docker installer that downloads a generated config and runs aria2.
 
 ## Commands
 
@@ -121,9 +121,9 @@ bash aria2.sh
 
 ## Architecture
 
-1. `get_trackerslist_data()` fetches the verified/excluded tracker lists from hezhijie0327/Trackerslist.
+1. `get_trackerslist_data()` fetches the verified/excluded tracker lists from hezhijie0327/Trackerslist (`dist/tracker_aria2.txt`, `dist/exclude_aria2.txt`).
 2. `get_masquerade_data()` queries the GitHub tags API for the latest release of aria2, Deluge, libtorrent, qBittorrent and Transmission.
-3. `output_aria2c_options()` renders the shared `ARIA2C_OPTIONS` template per (profile, OS) combination.
+3. `output_aria2c_options()` renders the shared `ARIA2C_OPTIONS` template per (profile, OS) combination into `dist/<profile>/<os>.conf`.
 
 ## Conventions
 

@@ -13,8 +13,8 @@ from urllib.request import Request, urlopen
 
 ROOT = Path(__file__).resolve().parent
 
-EXCLUDELIST_URL = "https://raw.githubusercontent.com/hezhijie0327/Trackerslist/main/trackerslist_exclude_aria2.txt"
-TRACKERLIST_URL = "https://raw.githubusercontent.com/hezhijie0327/Trackerslist/main/trackerslist_tracker_aria2.txt"
+EXCLUDELIST_URL = "https://raw.githubusercontent.com/hezhijie0327/Trackerslist/main/dist/exclude_aria2.txt"
+TRACKERLIST_URL = "https://raw.githubusercontent.com/hezhijie0327/Trackerslist/main/dist/tracker_aria2.txt"
 
 # GitHub tag endpoints used to masquerade as the latest client versions
 MASQUERADE_REPOS = {
@@ -331,7 +331,9 @@ def output_aria2c_options(software_prefix, os_name, versions, excludelist_data, 
             lines.append(option)
         else:
             lines.append(f"#{option}")
-    (ROOT / f"aria2_{software_prefix}_{os_name}.conf").write_text("\n".join(lines) + "\n")
+    out_dir = ROOT / "dist" / software_prefix
+    out_dir.mkdir(parents=True, exist_ok=True)
+    (out_dir / f"{os_name}.conf").write_text("\n".join(lines) + "\n")
 
 
 # Output Data
