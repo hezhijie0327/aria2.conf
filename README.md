@@ -18,12 +18,12 @@
 
 ### 方式一：直接使用生成的配置
 
-```bash
-# Linux + qBittorrent 伪装档
-curl -O https://raw.githubusercontent.com/hezhijie0327/aria2.conf/main/dist/qb/linux.conf
-```
-
-文件路径：`dist/<配置档>/<平台>.conf`，配置档 ∈ {a2, de, qb, tr}，平台 ∈ {linux, macos, windows}。
+| 配置档 | Linux | macOS | Windows |
+| ------ | ----- | ----- | ------- |
+| a2（aria2 原生） | [linux.conf](dist/a2/linux.conf) | [macos.conf](dist/a2/macos.conf) | [windows.conf](dist/a2/windows.conf) |
+| de（Deluge） | [linux.conf](dist/de/linux.conf) | [macos.conf](dist/de/macos.conf) | [windows.conf](dist/de/windows.conf) |
+| qb（qBittorrent） | [linux.conf](dist/qb/linux.conf) | [macos.conf](dist/qb/macos.conf) | [windows.conf](dist/qb/windows.conf) |
+| tr（Transmission） | [linux.conf](dist/tr/linux.conf) | [macos.conf](dist/tr/macos.conf) | [windows.conf](dist/tr/windows.conf) |
 
 ### 方式二：本地构建
 
