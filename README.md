@@ -3,7 +3,7 @@
 [![License](https://img.shields.io/badge/License-Apache%202.0--Commons%20Clause-blue)](LICENSE)
 [![Python](https://img.shields.io/badge/Python-3776AB?logo=python&logoColor=white)](https://www.python.org/)
 
-自动生成优化的 aria2 配置（Linux / macOS / Windows），伪装为最新版 qBittorrent / Deluge / Transmission / aria2 客户端，并内置最新跟踪器列表。开发规范见 [AGENTS.md](AGENTS.md)。
+aria2.conf 自动生成 Linux / macOS / Windows 三平台的 aria2 配置，伪装为最新版 qBittorrent / Deluge / Transmission / aria2 客户端，并内置最新跟踪器列表；Python 3.9+ 标准库实现，GitHub Actions 每日更新。开发规范见 [AGENTS.md](AGENTS.md)。
 
 ## 特性
 
@@ -16,7 +16,7 @@
 
 ## 快速开始
 
-### 方式一：直接使用生成的配置
+### 直接下载
 
 | 配置档 | Linux | macOS | Windows |
 | ------ | ----- | ----- | ------- |
@@ -25,7 +25,7 @@
 | qb（qBittorrent） | [linux.conf](dist/qb/linux.conf) | [macos.conf](dist/qb/macos.conf) | [windows.conf](dist/qb/windows.conf) |
 | tr（Transmission） | [linux.conf](dist/tr/linux.conf) | [macos.conf](dist/tr/macos.conf) | [windows.conf](dist/tr/windows.conf) |
 
-### 方式二：本地构建
+### 本地构建
 
 ```bash
 git clone https://github.com/hezhijie0327/aria2.conf.git
@@ -35,7 +35,7 @@ python3 build.py
 
 依赖：Python 3.9+（仅标准库）、网络访问。
 
-### 方式三：Docker 部署（aria2.sh）
+### Docker 部署
 
 ```bash
 # 编辑 aria2.sh 顶部参数（DOCKER_PATH、DOWNLOAD_CONFIG、RPC 端口/密钥等）
@@ -44,7 +44,9 @@ bash aria2.sh
 
 `aria2.sh` 会拉取 `hezhijie0327/aria2` 镜像，按 `DOWNLOAD_CONFIG`（a2/de/qb/tr）下载对应 Linux 配置，按需改写端口、RPC、IPv6 等选项后启动容器。
 
-## 配置说明
+## 用法
+
+### 配置说明
 
 - 空值选项与 `rpc-certificate` / `rpc-private-key` 默认注释，按需启用
 - RPC 默认端口 6800，`rpc-secret` 默认注释（建议启用）
